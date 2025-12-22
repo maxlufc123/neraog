@@ -9,89 +9,123 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
 
 :root{
-  --bg:#07070c;
-  --panel:rgba(20,20,32,.88);
-  --glass:rgba(255,255,255,.06);
-  --accent:#6d7cff;
-  --accent2:#9aa6ff;
-  --text:#fff;
-  --muted:#9aa0c3;
-  --success:#3dff6f;
-  --danger:#ff3d3d;
+ --bg:#07070c;
+ --panel:rgba(20,20,32,.88);
+ --glass:rgba(255,255,255,.06);
+ --accent:#6d7cff;
+ --accent2:#9aa6ff;
+ --text:#fff;
+ --muted:#9aa0c3;
+ --success:#3dff6f;
+ --danger:#ff3d3d;
+ --warning:#ffd84d;
 }
 
 *{box-sizing:border-box;font-family:Inter,sans-serif}
 
 body{
-  margin:0;
-  background:radial-gradient(1200px 600px at top,#101028,#07070c);
-  color:var(--text);
-  overflow-x:hidden;
+ margin:0;
+ background:radial-gradient(1200px 600px at top,#101028,#07070c);
+ color:var(--text);
 }
 
 /* ===== HEADER ===== */
 header{
-  position:sticky;
-  top:0;
-  z-index:20;
-  backdrop-filter:blur(10px);
-  background:linear-gradient(90deg,rgba(109,124,255,.12),rgba(0,0,0,.4));
-  border-bottom:1px solid rgba(255,255,255,.06);
-  display:flex;
-  align-items:center;
-  gap:24px;
-  padding:18px 28px;
+ position:sticky;
+ top:0;
+ z-index:20;
+ backdrop-filter:blur(10px);
+ background:linear-gradient(90deg,rgba(109,124,255,.12),rgba(0,0,0,.4));
+ border-bottom:1px solid rgba(255,255,255,.06);
+ display:flex;
+ align-items:center;
+ gap:24px;
+ padding:18px 28px;
 }
 
 .logo{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  font-size:22px;
-  font-weight:800;
+ display:flex;
+ align-items:center;
+ gap:12px;
+ font-size:22px;
+ font-weight:800;
 }
 .logo img{width:34px}
 
 .search{flex:1}
 .search input{
-  width:100%;
-  padding:14px 18px;
-  background:var(--glass);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:14px;
-  color:white;
-  outline:none;
+ width:100%;
+ padding:14px 18px;
+ background:var(--glass);
+ border:1px solid rgba(255,255,255,.08);
+ border-radius:14px;
+ color:white;
+ outline:none;
 }
 
 .currency{
-  font-weight:800;
-  padding:10px 16px;
-  border-radius:12px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  cursor:pointer;
+ font-weight:800;
+ padding:10px 16px;
+ border-radius:12px;
+ background:linear-gradient(135deg,var(--accent),var(--accent2));
+ cursor:pointer;
+}
+
+/* ===== GLOBAL STATUS ===== */
+.global-status{
+ position:absolute;
+ left:20px;
+ top:78px;
+ display:flex;
+ align-items:center;
+ gap:10px;
+ background:var(--panel);
+ border:1px solid rgba(255,255,255,.08);
+ padding:10px 14px;
+ border-radius:14px;
+ font-weight:700;
 }
 
 /* ===== TABS ===== */
 .tabs{
-  display:flex;
-  justify-content:center;
-  gap:16px;
-  margin:26px 0 10px;
+ display:flex;
+ justify-content:center;
+ gap:16px;
+ margin:26px 0 10px;
 }
 
 .tab{
-  padding:12px 26px;
-  border-radius:16px;
-  background:var(--glass);
-  border:1px solid rgba(255,255,255,.08);
-  cursor:pointer;
-  font-weight:700;
-  transition:.25s;
+ padding:12px 26px;
+ border-radius:16px;
+ background:var(--glass);
+ border:1px solid rgba(255,255,255,.08);
+ cursor:pointer;
+ font-weight:700;
+ transition:.25s;
 }
 
 .tab.active{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  box-shadow:0 0 18px rgba(109,124,255,.45);
+ background:linear-gradient(135deg,var(--accent),var(--accent2));
+ box-shadow:0 0 18px rgba(109,124,255,.45);
+}
+
+/* ===== STATUS DOTS ===== */
+.dot{
+ width:14px;
+ height:14px;
+ border-radius:50%;
+}
+.green{
+ background:var(--success);
+ box-shadow:0 0 14px rgba(61,255,111,.9);
+}
+.yellow{
+ background:var(--warning);
+ box-shadow:0 0 14px rgba(255,216,77,.9);
+}
+.red{
+ background:var(--danger);
+ box-shadow:0 0 14px rgba(255,61,61,.9);
 }
 
 /* ===== SECTIONS ===== */
@@ -100,43 +134,43 @@ header{
 
 /* ===== STATS ===== */
 .stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  max-width:900px;
-  margin:40px auto 10px;
-  gap:22px;
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ max-width:900px;
+ margin:40px auto 10px;
+ gap:22px;
 }
 
 .stat{
-  background:var(--panel);
-  border-radius:20px;
-  padding:24px;
-  text-align:center;
-  border:1px solid rgba(255,255,255,.06);
+ background:var(--panel);
+ border-radius:20px;
+ padding:24px;
+ text-align:center;
+ border:1px solid rgba(255,255,255,.06);
 }
 
 /* ===== PRODUCTS ===== */
 .products{
-  max-width:1400px;
-  margin:40px auto;
-  padding:0 30px 80px;
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:26px;
+ max-width:1400px;
+ margin:40px auto;
+ padding:0 30px 80px;
+ display:grid;
+ grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+ gap:26px;
 }
 
 .product{
-  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.35));
-  border:1px solid rgba(255,255,255,.06);
-  border-radius:22px;
-  padding:16px;
-  cursor:pointer;
-  transition:.25s;
+ background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.35));
+ border:1px solid rgba(255,255,255,.06);
+ border-radius:22px;
+ padding:16px;
+ cursor:pointer;
+ transition:.25s;
 }
 
 .product:hover{
-  transform:translateY(-6px);
-  box-shadow:0 18px 40px rgba(0,0,0,.45);
+ transform:translateY(-6px);
+ box-shadow:0 18px 40px rgba(0,0,0,.45);
 }
 
 .product img{width:100%;border-radius:16px}
@@ -144,109 +178,75 @@ header{
 
 /* ===== MODAL ===== */
 .modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.82);
-  backdrop-filter:blur(8px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  pointer-events:none;
-  transition:.25s;
-  z-index:50;
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,.82);
+ backdrop-filter:blur(8px);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ opacity:0;
+ pointer-events:none;
+ transition:.25s;
+ z-index:50;
 }
-.modal.show{
-  opacity:1;
-  pointer-events:auto;
-}
+.modal.show{opacity:1;pointer-events:auto}
 
 .modal-box{
-  background:linear-gradient(180deg,#121226,#0a0a14);
-  width:880px;
-  max-width:95%;
-  border-radius:26px;
-  padding:34px;
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:32px;
-  transform:translateY(30px);
-  transition:.25s ease;
+ background:linear-gradient(180deg,#121226,#0a0a14);
+ width:880px;
+ max-width:95%;
+ border-radius:26px;
+ padding:34px;
+ display:grid;
+ grid-template-columns:1.1fr .9fr;
+ gap:32px;
+ transform:translateY(30px);
+ transition:.25s;
 }
 .modal.show .modal-box{transform:none}
 
-.status{
-  display:flex;
-  gap:12px;
-  align-items:center;
-  margin-bottom:14px;
-}
-
-.dot{
-  width:14px;
-  height:14px;
-  border-radius:50%;
-}
-.green{background:var(--success)}
-.red{background:var(--danger)}
-
 .buy-btn{
-  width:100%;
-  margin-top:22px;
-  padding:16px;
-  border:none;
-  border-radius:16px;
-  font-weight:800;
-  cursor:pointer;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
+ width:100%;
+ margin-top:22px;
+ padding:16px;
+ border:none;
+ border-radius:16px;
+ font-weight:800;
+ cursor:pointer;
+ background:linear-gradient(135deg,var(--accent),var(--accent2));
 }
 .buy-btn:disabled{background:#333}
 
+/* ===== STATUS PAGE ===== */
+.status-board{
+ max-width:900px;
+ margin:40px auto;
+ background:var(--panel);
+ border-radius:26px;
+ padding:30px;
+}
+
+.status-row{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ padding:14px 0;
+ border-bottom:1px solid rgba(255,255,255,.06);
+}
+.status-left{
+ display:flex;
+ align-items:center;
+ gap:14px;
+}
+
 /* ===== DOWNLOAD ===== */
 .download-box{
-  max-width:900px;
-  margin:40px auto;
-  background:var(--panel);
-  border-radius:26px;
-  padding:40px;
-}
-
-.changelog{
-  background:var(--glass);
-  border-radius:16px;
-  padding:20px;
-  margin:25px 0;
-  color:var(--muted);
-}
-
-.download-actions{
-  display:flex;
-  gap:18px;
-  flex-wrap:wrap;
-}
-
-.action-btn{
-  padding:16px 26px;
-  border-radius:16px;
-  font-weight:800;
-  border:none;
-  cursor:pointer;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-}
-
-.discord-btn{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  background:#5865F2;
-}
-
-.discord-btn img{
-  width:26px;
-  transition:transform .5s ease;
-}
-.discord-btn:hover img{
-  transform:rotate(360deg);
+ max-width:900px;
+ margin:40px auto;
+ background:var(--panel);
+ border-radius:26px;
+ padding:40px;
 }
 </style>
 </head>
@@ -254,57 +254,72 @@ header{
 <body>
 
 <header>
-  <div class="logo"><img src="assets/logo.png">Nera</div>
-  <div class="search"><input placeholder="Search cosmetics, bundles, packs…"></div>
-  <div class="currency" onclick="cycleCurrency()" id="currencySymbol">£</div>
+ <div class="logo"><img src="assets/logo.png">Nera V2</div>
+ <div class="search"><input placeholder="Search cosmetics, bundles, packs…"></div>
+ <div class="currency" id="currencySymbol" onclick="cycleCurrency()">£</div>
 </header>
 
+<div class="global-status">
+ <div class="dot" id="globalDot"></div>
+ <span id="globalText"></span>
+</div>
+
 <div class="tabs">
-  <div class="tab active" onclick="switchTab('store',this)">Store</div>
-  <div class="tab" onclick="switchTab('download',this)">Download</div>
+ <div class="tab active" onclick="switchTab('store',this)">Store</div>
+ <div class="tab" onclick="switchTab('status',this)">Status</div>
+ <div class="tab" onclick="switchTab('download',this)">Download</div>
 </div>
 
 <section class="section active" id="store">
-  <section class="stats">
-    <div class="stat"><h2 id="sales"></h2><span>Total Sales</span></div>
-    <div class="stat"><h2 id="buyers"></h2><span>Unique Buyers</span></div>
-    <div class="stat"><h2 id="rating"></h2><span>Store Rating</span></div>
-  </section>
-  <section class="products" id="products"></section>
+ <section class="stats">
+  <div class="stat"><h2 id="sales"></h2><span>Total Sales</span></div>
+  <div class="stat"><h2 id="buyers"></h2><span>Unique Buyers</span></div>
+  <div class="stat"><h2 id="rating"></h2><span>Store Rating</span></div>
+ </section>
+ <section class="products" id="products"></section>
+</section>
+
+<section class="section" id="status">
+ <div class="status-board">
+  <h2>Nara Services Status 📢</h2>
+  <div id="statusList"></div>
+  <br>
+  <small style="color:var(--muted)">
+   🟢 Fully Functional | 🟡 Functional but experiencing issues | 🔴 Offline<br><br>
+   Check uptime at <a href="https://maxlufc123.github.io/neraog/" target="_blank">status.projectnera.site</a><br><br>
+   <strong>All Servers Will Be Up Once Released.</strong>
+  </small>
+ </div>
 </section>
 
 <section class="section" id="download">
-  <div class="download-box">
-    <h2>Nera Client</h2>
-    <div class="changelog">
-      <strong>Changelog</strong><br><br>
-      • Added Nara Series skins<br>
-      • Improved checkout speed<br>
-      • UI performance optimisations<br>
-      • Stability & bug fixes
-    </div>
-    <div class="download-actions">
-      <a href="https://maxlufc123.github.io/neraog/" download><button class="action-btn">Download</button></a>
-      <a href="https://discord.gg/bWuxtutc" target="_blank">
-        <button class="action-btn discord-btn">
-          <img src="assets/discord.png">Join Discord
-        </button>
-      </a>
-    </div>
-  </div>
+ <div class="download-box">
+  <h2>Nera Client</h2>
+  <p>Latest stable client release.</p>
+ </div>
 </section>
 
 <div class="modal" id="modal" onclick="if(event.target.id==='modal')modal.classList.remove('show')">
-  <div class="modal-box" id="modalBox"></div>
+ <div class="modal-box" id="modalBox"></div>
 </div>
 
 <script>
 const CONFIG={
  currency:{rates:{"£":1,"$":1.27,"€":1.17}},
  stats:{sales:43,buyers:43,rating:"★ 4.34"},
+ globalStatus:{state:"green",text:"Online"},
+ statusPage:[
+  {name:"EU",state:"red",text:"Currently Experiencing Issues."},
+  {name:"NAE",state:"red",text:"Offline"},
+  {name:"NAW",state:"red",text:"Offline"},
+  {name:"ME",state:"red",text:"Offline"},
+  {name:"OCE",state:"red",text:"Offline"},
+  {name:"Website",state:"green",text:"Online"},
+  {name:"Backend",state:"red",text:"Offline"}
+ ],
  products:[
   {name:"Crystal Package",img:"assets/product1.png",desc:"Unlock hundreds of outfits with the Crystal Package!",stock:12,old:14.99,price:9.99,status:"red"},
-  {name:"Icon Series Bundle",img:"assets/product2.png",desc:"Currently experiencing issues.",stock:5,old:19.99,price:12.99,status:"red"},
+  {name:"Icon Series Bundle",img:"assets/product2.png",desc:"Currently Experiencing Issues.",stock:5,old:19.99,price:12.99,status:"red"},
   {name:"Glory Glides",img:"assets/product3.png",desc:"Temporary maintenance ongoing.",stock:22,old:9.99,price:6.99,status:"red"},
   {name:"FNCS Major Bundle",img:"assets/product4.png",desc:"Limited FNCS cosmetics.",stock:3,old:24.99,price:18.99,status:"red"},
   {name:"OG Bundle",img:"assets/product5.png",desc:"Classic OG items.",stock:15,old:11.99,price:7.99,status:"red"},
@@ -323,50 +338,46 @@ function render(){
  buyers.innerText=CONFIG.stats.buyers;
  rating.innerText=CONFIG.stats.rating;
 
- const rate=CONFIG.currency.rates[currentCurrency];
- products.innerHTML="";
- const frag=document.createDocumentFragment();
+ globalDot.className=`dot ${CONFIG.globalStatus.state}`;
+ globalText.innerText=CONFIG.globalStatus.text;
 
+ products.innerHTML="";
  CONFIG.products.forEach((p,i)=>{
-  const card=document.createElement("div");
-  card.className="product";
-  card.innerHTML=`
+  products.innerHTML+=`
+   <div class="product" onclick="openModal(${i})">
     <img src="${p.img}">
     <h3>${p.name}</h3>
     <div>${p.stock} in stock</div>
-    <strong>${currentCurrency}${(p.price*rate).toFixed(2)}</strong>
-  `;
-  card.onclick=()=>openModal(i);
-  frag.appendChild(card);
+    <strong>${currentCurrency}${p.price}</strong>
+   </div>`;
  });
 
- products.appendChild(frag);
+ statusList.innerHTML="";
+ CONFIG.statusPage.forEach(s=>{
+  statusList.innerHTML+=`
+   <div class="status-row">
+    <div class="status-left">
+     <div class="dot ${s.state}"></div>
+     <strong>${s.name}</strong>
+    </div>
+    <span>${s.text}</span>
+   </div>`;
+ });
 }
 
 function openModal(i){
  const p=CONFIG.products[i];
- const rate=CONFIG.currency.rates[currentCurrency];
  modal.classList.add("show");
  modalBox.innerHTML=`
  <div>
   <img src="${p.img}" style="width:100%;border-radius:18px">
   <h2>${p.name}</h2>
-  <p>${p.desc}</p>
  </div>
  <div>
-  <div class="status">
-   <div class="dot ${p.status}"></div>
-   <strong>${p.status==="green"?"Available":"Unavailable"}</strong>
-  </div>
-  <h2>${currentCurrency}${(p.price*rate).toFixed(2)}</h2>
-  <button class="buy-btn" ${p.status!=="green"?"disabled":""}
-    onclick="purchase(this,'${p.status}')">Purchase</button>
+  <div class="dot ${p.status}"></div>
+  <h2>${currentCurrency}${p.price}</h2>
+  <button class="buy-btn" ${p.status!=="green"?"disabled":""}>Purchase</button>
  </div>`;
-}
-
-function purchase(btn,status){
- btn.innerText="Processing…";
- setTimeout(()=>{btn.innerText=status==="green"?"Success ✔":"Failed"},1200);
 }
 
 function cycleCurrency(){
