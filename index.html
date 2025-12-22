@@ -268,7 +268,6 @@ header{
  <div class="tab active" onclick="switchTab('store',this)">Store</div>
  <div class="tab" onclick="switchTab('status',this)">Status</div>
  <div class="tab" onclick="switchTab('download',this)">Download</div>
- <div class="tab" onclick="switchTab('misc',this)">Misc</div>
 </div>
 
 <section class="section active" id="store">
@@ -300,12 +299,6 @@ header{
  </div>
 </section>
 
- <section class="section" id="misc">
- <div class="download-box">
-  {name:"Discord",img:"assets/discord.png",desc:"Join This After Purchase To Claim Your Discord Roles.",stock:0,old:0,price:0,status:"red"},
- </div>
-</section>
-
 <div class="modal" id="modal" onclick="if(event.target.id==='modal')modal.classList.remove('show')">
  <div class="modal-box" id="modalBox"></div>
 </div>
@@ -316,26 +309,26 @@ const CONFIG={
  stats:{sales:43,buyers:43,rating:"★ 4.34"},
  globalStatus:{state:"green",text:"Online"},
  statusPage:[
-  {name:"EU",state:"red",text:"Online"},
-  {name:"NAE",state:"red",text:"Online"},
-  {name:"NAW",state:"red",text:"Online"},
-  {name:"ME",state:"red",text:"Online"},
-  {name:"OCE",state:"red",text:"Online"},
-  {name:"Launcher",state:"yellow",text:"Online"},
+  {name:"EU",state:"green",text:"Online"},
+  {name:"NAE",state:"green",text:"Online"},
+  {name:"NAW",state:"green",text:"Online"},
+  {name:"ME",state:"green",text:"Online"},
+  {name:"OCE",state:"green",text:"Online"},
+  {name:"Launcher",state:"green",text:"Online"},
   {name:"Website",state:"green",text:"Online"},
-  {name:"Backend",state:"red",text:"Online"},
-  {name:"ISO Skin Tounry",state:"red",text:"Offline"}
+  {name:"Backend",state:"green",text:"Online"},
+  {name:"ISO Skin Tounry",state:"green",text:"Online"}
  ],
  products:[
-  {name:"Crystal Package",img:"assets/product1.png",desc:"Unlock hundreds of outfits with the Crystal Package!",stock:12,old:14.99,price:9.99,status:"red"},
-  {name:"Icon Series Bundle",img:"assets/product2.png",desc:"Currently Experiencing Issues.",stock:5,old:19.99,price:12.99,status:"red"},
-  {name:"Glory Glides",img:"assets/product3.png",desc:"Temporary maintenance ongoing.",stock:22,old:9.99,price:6.99,status:"red"},
-  {name:"FNCS Major Bundle",img:"assets/product4.png",desc:"Limited FNCS cosmetics.",stock:3,old:24.99,price:18.99,status:"red"},
-  {name:"OG Bundle",img:"assets/product5.png",desc:"Classic OG items.",stock:15,old:11.99,price:7.99,status:"red"},
-  {name:"Carti Bundle",img:"assets/product6.png",desc:"Exclusive artist bundle.",stock:9,old:17.99,price:13.49,status:"red"},
-  {name:"Full Locker",img:"assets/product8.png",desc:"Get Every Skin In The Game Including The Nara Series Skins.",stock:300,old:13.99,price:9.99,status:"red"},
-  {name:"Kratos Bundle",img:"assets/product7.png",desc:"God of War crossover.",stock:1,old:29.99,price:21.99,status:"red"},
-  {name:"Unreal Pack",img:"assets/product9.png",desc:"Get 10k Arena Points and 20+ cosmetics.",stock:300,old:13.99,price:9.99,status:"red"},
+  {name:"Crystal Package",img:"assets/product1.png",desc:"Unlock hundreds of outfits with the Crystal Package!",stock:12,old:14.99,price:9.99,status:"green"},
+  {name:"Icon Series Bundle",img:"assets/product2.png",desc:"Currently Experiencing Issues.",stock:5,old:19.99,price:12.99,status:"green"},
+  {name:"Glory Glides",img:"assets/product3.png",desc:"Temporary maintenance ongoing.",stock:22,old:9.99,price:6.99,status:"green"},
+  {name:"FNCS Major Bundle",img:"assets/product4.png",desc:"Limited FNCS cosmetics.",stock:3,old:24.99,price:18.99,status:"green"},
+  {name:"OG Bundle",img:"assets/product5.png",desc:"Classic OG items.",stock:15,old:11.99,price:7.99,status:"green"},
+  {name:"Carti Bundle",img:"assets/product6.png",desc:"Exclusive artist bundle.",stock:9,old:17.99,price:13.49,status:"green"},
+  {name:"Full Locker",img:"assets/product8.png",desc:"Get Every Skin In The Game Including The Nara Series Skins.",stock:300,old:13.99,price:9.99,status:"green"},
+  {name:"Kratos Bundle",img:"assets/product7.png",desc:"God of War crossover.",stock:1,old:29.99,price:21.99,status:"green"},
+  {name:"Unreal Pack",img:"assets/product9.png",desc:"Get 10k Arena Points and 20+ cosmetics.",stock:300,old:13.99,price:9.99,status:"green"},
  ]
 };
 
@@ -407,6 +400,7 @@ render();
 
 </body>
 </html>
+
 
 
 
