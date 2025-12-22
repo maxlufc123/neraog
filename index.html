@@ -10,11 +10,11 @@
 
 :root{
   --bg:#07070c;
-  --panel:rgba(20,20,32,.85);
+  --panel:rgba(20,20,32,.88);
   --glass:rgba(255,255,255,.06);
   --accent:#6d7cff;
   --accent2:#9aa6ff;
-  --text:#ffffff;
+  --text:#fff;
   --muted:#9aa0c3;
   --success:#3dff6f;
   --danger:#ff3d3d;
@@ -24,8 +24,7 @@
 
 body{
   margin:0;
-  background:
-    radial-gradient(1200px 600px at top,#101028,#07070c);
+  background:radial-gradient(1200px 600px at top,#101028,#07070c);
   color:var(--text);
   overflow-x:hidden;
 }
@@ -34,20 +33,14 @@ body{
 header{
   position:sticky;
   top:0;
-  z-index:10;
-  backdrop-filter:blur(18px);
+  z-index:20;
+  backdrop-filter:blur(10px);
   background:linear-gradient(90deg,rgba(109,124,255,.12),rgba(0,0,0,.4));
   border-bottom:1px solid rgba(255,255,255,.06);
   display:flex;
   align-items:center;
-  gap:25px;
+  gap:24px;
   padding:18px 28px;
-  animation:slideDown .6s ease;
-}
-
-@keyframes slideDown{
-  from{transform:translateY(-30px);opacity:0}
-  to{transform:none;opacity:1}
 }
 
 .logo{
@@ -56,16 +49,10 @@ header{
   gap:12px;
   font-size:22px;
   font-weight:800;
-  letter-spacing:.4px;
 }
-
 .logo img{width:34px}
 
-.search{
-  flex:1;
-  position:relative;
-}
-
+.search{flex:1}
 .search input{
   width:100%;
   padding:14px 18px;
@@ -74,24 +61,42 @@ header{
   border-radius:14px;
   color:white;
   outline:none;
-  transition:.25s;
-}
-
-.search input:focus{
-  border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(109,124,255,.25);
 }
 
 .currency{
-  cursor:pointer;
-  font-weight:700;
-  font-size:18px;
+  font-weight:800;
   padding:10px 16px;
   border-radius:12px;
   background:linear-gradient(135deg,var(--accent),var(--accent2));
+  cursor:pointer;
+}
+
+/* ===== TABS ===== */
+.tabs{
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  margin:26px 0 10px;
+}
+
+.tab{
+  padding:12px 26px;
+  border-radius:16px;
+  background:var(--glass);
+  border:1px solid rgba(255,255,255,.08);
+  cursor:pointer;
+  font-weight:700;
   transition:.25s;
 }
-.currency:hover{transform:scale(1.05)}
+
+.tab.active{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  box-shadow:0 0 18px rgba(109,124,255,.45);
+}
+
+/* ===== SECTIONS ===== */
+.section{display:none}
+.section.active{display:block}
 
 /* ===== STATS ===== */
 .stats{
@@ -99,34 +104,15 @@ header{
   grid-template-columns:repeat(3,1fr);
   max-width:900px;
   margin:40px auto 10px;
-  gap:25px;
+  gap:22px;
 }
 
 .stat{
   background:var(--panel);
-  border:1px solid rgba(255,255,255,.06);
   border-radius:20px;
-  padding:25px;
+  padding:24px;
   text-align:center;
-  animation:fadeUp .7s ease both;
-}
-
-.stat:nth-child(2){animation-delay:.1s}
-.stat:nth-child(3){animation-delay:.2s}
-
-@keyframes fadeUp{
-  from{transform:translateY(20px);opacity:0}
-  to{transform:none;opacity:1}
-}
-
-.stat h2{
-  margin:0;
-  font-size:34px;
-}
-
-.stat span{
-  color:var(--muted);
-  font-size:14px;
+  border:1px solid rgba(255,255,255,.06);
 }
 
 /* ===== PRODUCTS ===== */
@@ -136,75 +122,40 @@ header{
   padding:0 30px 80px;
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:28px;
+  gap:26px;
 }
 
 .product{
-  position:relative;
-  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.3));
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.35));
   border:1px solid rgba(255,255,255,.06);
   border-radius:22px;
   padding:16px;
   cursor:pointer;
-  overflow:hidden;
-  transition:.35s cubic-bezier(.2,.8,.2,1);
-  animation:fadeUp .7s ease both;
+  transition:.25s;
 }
 
-.product::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(120deg,transparent,rgba(255,255,255,.12),transparent);
-  opacity:0;
-  transition:.4s;
-}
-
-.product:hover::before{opacity:1}
 .product:hover{
-  transform:translateY(-10px) scale(1.03);
-  box-shadow:0 30px 60px rgba(0,0,0,.6);
+  transform:translateY(-6px);
+  box-shadow:0 18px 40px rgba(0,0,0,.45);
 }
 
-.product img{
-  width:100%;
-  border-radius:16px;
-}
-
-.product h3{
-  margin:14px 0 6px;
-  font-size:18px;
-}
-
-.stock{
-  font-size:13px;
-  color:var(--muted);
-}
-
-.price{
-  display:flex;
-  gap:10px;
-  margin-top:8px;
-  align-items:center;
-}
-
-.old{color:#ff7b7b;text-decoration:line-through}
-.new{color:var(--success);font-weight:700;font-size:18px}
+.product img{width:100%;border-radius:16px}
+.product h3{margin:12px 0 6px}
 
 /* ===== MODAL ===== */
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.85);
-  backdrop-filter:blur(10px);
+  background:rgba(0,0,0,.82);
+  backdrop-filter:blur(8px);
   display:flex;
   align-items:center;
   justify-content:center;
   opacity:0;
   pointer-events:none;
-  transition:.4s;
+  transition:.25s;
+  z-index:50;
 }
-
 .modal.show{
   opacity:1;
   pointer-events:auto;
@@ -212,68 +163,90 @@ header{
 
 .modal-box{
   background:linear-gradient(180deg,#121226,#0a0a14);
-  width:900px;
+  width:880px;
   max-width:95%;
   border-radius:26px;
   padding:34px;
   display:grid;
   grid-template-columns:1.1fr .9fr;
-  gap:34px;
-  transform:translateY(40px) scale(.96);
-  transition:.4s cubic-bezier(.2,.8,.2,1);
+  gap:32px;
+  transform:translateY(30px);
+  transition:.25s ease;
 }
-
-.modal.show .modal-box{
-  transform:none;
-}
-
-.modal img{width:100%;border-radius:18px}
+.modal.show .modal-box{transform:none}
 
 .status{
   display:flex;
-  align-items:center;
   gap:12px;
-  margin-bottom:20px;
+  align-items:center;
+  margin-bottom:14px;
 }
 
 .dot{
-  width:14px;height:14px;border-radius:50%;
-  animation:pulse 1.4s infinite;
+  width:14px;
+  height:14px;
+  border-radius:50%;
 }
+.green{background:var(--success)}
+.red{background:var(--danger)}
 
-.green{background:var(--success);box-shadow:0 0 16px var(--success)}
-.red{background:var(--danger);box-shadow:0 0 16px var(--danger)}
-.yellow{background:#ffd93d;box-shadow:0 0 16px #ffd93d}
-
-@keyframes pulse{
-  0%{opacity:1}
-  50%{opacity:.4}
-  100%{opacity:1}
-}
-
-/* ===== BUTTON ===== */
 .buy-btn{
   width:100%;
-  margin-top:26px;
+  margin-top:22px;
   padding:16px;
   border:none;
   border-radius:16px;
-  font-size:16px;
-  font-weight:700;
+  font-weight:800;
   cursor:pointer;
   background:linear-gradient(135deg,var(--accent),var(--accent2));
-  transition:.3s;
+}
+.buy-btn:disabled{background:#333}
+
+/* ===== DOWNLOAD ===== */
+.download-box{
+  max-width:900px;
+  margin:40px auto;
+  background:var(--panel);
+  border-radius:26px;
+  padding:40px;
 }
 
-.buy-btn:hover{transform:scale(1.04)}
-.buy-btn:disabled{background:#333;cursor:not-allowed}
-
-.footer{
-  grid-column:1/3;
-  text-align:center;
-  font-size:12px;
+.changelog{
+  background:var(--glass);
+  border-radius:16px;
+  padding:20px;
+  margin:25px 0;
   color:var(--muted);
-  margin-top:10px;
+}
+
+.download-actions{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+}
+
+.action-btn{
+  padding:16px 26px;
+  border-radius:16px;
+  font-weight:800;
+  border:none;
+  cursor:pointer;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+}
+
+.discord-btn{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:#5865F2;
+}
+
+.discord-btn img{
+  width:26px;
+  transition:transform .5s ease;
+}
+.discord-btn:hover img{
+  transform:rotate(360deg);
 }
 </style>
 </head>
@@ -286,32 +259,59 @@ header{
   <div class="currency" onclick="cycleCurrency()" id="currencySymbol">£</div>
 </header>
 
-<section class="stats">
-  <div class="stat"><h2 id="sales"></h2><span>Total Sales</span></div>
-  <div class="stat"><h2 id="buyers"></h2><span>Unique Buyers</span></div>
-  <div class="stat"><h2 id="rating"></h2><span>Store Rating</span></div>
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('store',this)">Store</div>
+  <div class="tab" onclick="switchTab('download',this)">Download</div>
+</div>
+
+<section class="section active" id="store">
+  <section class="stats">
+    <div class="stat"><h2 id="sales"></h2><span>Total Sales</span></div>
+    <div class="stat"><h2 id="buyers"></h2><span>Unique Buyers</span></div>
+    <div class="stat"><h2 id="rating"></h2><span>Store Rating</span></div>
+  </section>
+  <section class="products" id="products"></section>
 </section>
 
-<section class="products" id="products"></section>
+<section class="section" id="download">
+  <div class="download-box">
+    <h2>Nera Client</h2>
+    <div class="changelog">
+      <strong>Changelog</strong><br><br>
+      • Added Nara Series skins<br>
+      • Improved checkout speed<br>
+      • UI performance optimisations<br>
+      • Stability & bug fixes
+    </div>
+    <div class="download-actions">
+      <a href="https://maxlufc123.github.io/neraog/" download><button class="action-btn">Download</button></a>
+      <a href="https://discord.gg/bWuxtutc" target="_blank">
+        <button class="action-btn discord-btn">
+          <img src="assets/discord.png">Join Discord
+        </button>
+      </a>
+    </div>
+  </div>
+</section>
 
-<div class="modal" id="modal" onclick="closeModal(event)">
+<div class="modal" id="modal" onclick="if(event.target.id==='modal')modal.classList.remove('show')">
   <div class="modal-box" id="modalBox"></div>
 </div>
 
 <script>
 const CONFIG={
- currency:{symbol:"£",rates:{"£":1,"$":1.27,"€":1.17}},
+ currency:{rates:{"£":1,"$":1.27,"€":1.17}},
  stats:{sales:43,buyers:43,rating:"★ 4.34"},
-  products:[
-    {name:"Crystal Package",img:"assets/product1.png",description:"Unlock hundreds of outfits with the Crystal Package!",stock:12,old:14.99,price:9.99,status:"red"},
-    {name:"Icon Series Bundle",img:"assets/product2.png",description:"Currently experiencing issues.",stock:5,old:19.99,price:12.99,status:"red"},
-    {name:"Glory Glides",img:"assets/product3.png",description:"Temporary maintenance ongoing.",stock:22,old:9.99,price:6.99,status:"red"},
-    {name:"FNCS Major Bundle",img:"assets/product4.png",description:"Limited FNCS cosmetics.",stock:3,old:24.99,price:18.99,status:"red"},
-    {name:"OG Bundle",img:"assets/product5.png",description:"Classic OG items.",stock:15,old:11.99,price:7.99,status:"red"},
-    {name:"Carti Bundle",img:"assets/product6.png",description:"Exclusive artist bundle.",stock:9,old:17.99,price:13.49,status:"green"},
-    {name:"Full Locker",img:"assets/product8.png",description:"Get Every Skin In The Game Including The Nara Series Skins.",stock:300,old:13.99,price:9.99,status:"green"},
-    {name:"Kratos Bundle",img:"assets/product7.png",description:"God of War crossover.",stock:1,old:29.99,price:21.99,status:"red"},
-    {name:"Unreal Pack",img:"assets/product9.png",description:"Get 10k Arena Points, and get 20+ new skins and pickaxes!",stock:300,old:13.99,price:9.99,status:"red"},
+ products:[
+  {name:"Crystal Package",img:"assets/product1.png",desc:"Unlock hundreds of outfits with the Crystal Package!",stock:12,old:14.99,price:9.99,status:"red"},
+  {name:"Icon Series Bundle",img:"assets/product2.png",desc:"Currently experiencing issues.",stock:5,old:19.99,price:12.99,status:"red"},
+  {name:"Glory Glides",img:"assets/product3.png",desc:"Temporary maintenance ongoing.",stock:22,old:9.99,price:6.99,status:"red"},
+  {name:"FNCS Major Bundle",img:"assets/product4.png",desc:"Limited FNCS cosmetics.",stock:3,old:24.99,price:18.99,status:"red"},
+  {name:"OG Bundle",img:"assets/product5.png",desc:"Classic OG items.",stock:15,old:11.99,price:7.99,status:"red"},
+  {name:"Carti Bundle",img:"assets/product6.png",desc:"Exclusive artist bundle.",stock:9,old:17.99,price:13.49,status:"green"},
+  {name:"Full Locker",img:"assets/product8.png",desc:"Get Every Skin In The Game Including The Nara Series Skins.",stock:300,old:13.99,price:9.99,status:"green"},
+  {name:"Kratos Bundle",img:"assets/product7.png",desc:"God of War crossover.",stock:1,old:29.99,price:21.99,status:"red"},
+  {name:"Unreal Pack",img:"assets/product9.png",desc:"Get 10k Arena Points and 20+ cosmetics.",stock:300,old:13.99,price:9.99,status:"red"},
  ]
 };
 
@@ -325,29 +325,33 @@ function render(){
 
  const rate=CONFIG.currency.rates[currentCurrency];
  products.innerHTML="";
+ const frag=document.createDocumentFragment();
 
- CONFIG.products.forEach(p=>{
-  products.innerHTML+=`
-  <div class="product" onclick='openModal(${JSON.stringify(p)})'>
+ CONFIG.products.forEach((p,i)=>{
+  const card=document.createElement("div");
+  card.className="product";
+  card.innerHTML=`
     <img src="${p.img}">
     <h3>${p.name}</h3>
-    <div class="stock">${p.stock} in stock</div>
-    <div class="price">
-      <span class="old">${currentCurrency}${(p.old*rate).toFixed(2)}</span>
-      <span class="new">${currentCurrency}${(p.price*rate).toFixed(2)}</span>
-    </div>
-  </div>`;
+    <div>${p.stock} in stock</div>
+    <strong>${currentCurrency}${(p.price*rate).toFixed(2)}</strong>
+  `;
+  card.onclick=()=>openModal(i);
+  frag.appendChild(card);
  });
+
+ products.appendChild(frag);
 }
 
-function openModal(p){
+function openModal(i){
+ const p=CONFIG.products[i];
  const rate=CONFIG.currency.rates[currentCurrency];
  modal.classList.add("show");
  modalBox.innerHTML=`
  <div>
-  <img src="${p.img}">
+  <img src="${p.img}" style="width:100%;border-radius:18px">
   <h2>${p.name}</h2>
-  <p>${p.description}</p>
+  <p>${p.desc}</p>
  </div>
  <div>
   <div class="status">
@@ -355,30 +359,27 @@ function openModal(p){
    <strong>${p.status==="green"?"Available":"Unavailable"}</strong>
   </div>
   <h2>${currentCurrency}${(p.price*rate).toFixed(2)}</h2>
-  <p>Stock: ${p.stock}</p>
-  <button class="buy-btn" ${p.status!=="green"?"disabled":""} onclick="purchase(this,'${p.status}')">Purchase</button>
- </div>
- <div class="footer">© 2025 Nera Store • All items cosmetic only</div>
- `;
+  <button class="buy-btn" ${p.status!=="green"?"disabled":""}
+    onclick="purchase(this,'${p.status}')">Purchase</button>
+ </div>`;
 }
 
 function purchase(btn,status){
  btn.innerText="Processing…";
- btn.disabled=true;
- setTimeout(()=>{
-  btn.innerText=status==="green"?"Success ✔":"Failed";
-  btn.style.background=status==="green"?"linear-gradient(135deg,#3dff6f,#2ecc71)":"#ff3d3d";
- },1200);
-}
-
-function closeModal(e){
- if(e.target.id==="modal") modal.classList.remove("show");
+ setTimeout(()=>{btn.innerText=status==="green"?"Success ✔":"Failed"},1200);
 }
 
 function cycleCurrency(){
  const keys=Object.keys(CONFIG.currency.rates);
  currentCurrency=keys[(keys.indexOf(currentCurrency)+1)%keys.length];
  render();
+}
+
+function switchTab(id,el){
+ document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+ document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+ el.classList.add("active");
+ document.getElementById(id).classList.add("active");
 }
 
 render();
