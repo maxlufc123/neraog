@@ -6,162 +6,269 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-:root {
-  --bg:#0b0b10;
-  --card:#13131a;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+:root{
+  --bg:#07070c;
+  --panel:rgba(20,20,32,.85);
+  --glass:rgba(255,255,255,.06);
   --accent:#6d7cff;
-  --text:#fff;
-  --muted:#a0a0b5;
+  --accent2:#9aa6ff;
+  --text:#ffffff;
+  --muted:#9aa0c3;
+  --success:#3dff6f;
+  --danger:#ff3d3d;
 }
 
-* { box-sizing:border-box; font-family:Inter,Arial,sans-serif }
+*{box-sizing:border-box;font-family:Inter,sans-serif}
 
-body {
+body{
   margin:0;
-  background:var(--bg);
+  background:
+    radial-gradient(1200px 600px at top,#101028,#07070c);
   color:var(--text);
+  overflow-x:hidden;
 }
 
-/* HEADER */
-header {
+/* ===== HEADER ===== */
+header{
+  position:sticky;
+  top:0;
+  z-index:10;
+  backdrop-filter:blur(18px);
+  background:linear-gradient(90deg,rgba(109,124,255,.12),rgba(0,0,0,.4));
+  border-bottom:1px solid rgba(255,255,255,.06);
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  padding:18px 30px;
-}
-
-.logo { display:flex; align-items:center; gap:10px; font-size:20px; font-weight:700 }
-.logo img { width:32px }
-
-.search { flex:1; margin:0 40px }
-.search input {
-  width:100%; padding:12px 15px;
-  background:#1a1a25; border:none;
-  border-radius:8px; color:white;
-}
-
-.top-right { cursor:pointer }
-
-/* STATS */
-.stats {
-  display:flex;
-  justify-content:center;
-  gap:50px;
-  padding:30px 0;
-}
-
-.stat h2 { margin:0 }
-.stat span { color:var(--muted); font-size:14px }
-
-/* PRODUCTS */
-.products {
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
   gap:25px;
-  padding:30px;
-  max-width:1300px;
-  margin:auto;
+  padding:18px 28px;
+  animation:slideDown .6s ease;
 }
 
-.product {
-  background:var(--card);
-  border-radius:16px;
-  padding:15px;
+@keyframes slideDown{
+  from{transform:translateY(-30px);opacity:0}
+  to{transform:none;opacity:1}
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:.4px;
+}
+
+.logo img{width:34px}
+
+.search{
+  flex:1;
+  position:relative;
+}
+
+.search input{
+  width:100%;
+  padding:14px 18px;
+  background:var(--glass);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;
+  color:white;
+  outline:none;
+  transition:.25s;
+}
+
+.search input:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(109,124,255,.25);
+}
+
+.currency{
   cursor:pointer;
-  transition:transform .25s, box-shadow .25s;
+  font-weight:700;
+  font-size:18px;
+  padding:10px 16px;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  transition:.25s;
+}
+.currency:hover{transform:scale(1.05)}
+
+/* ===== STATS ===== */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  max-width:900px;
+  margin:40px auto 10px;
+  gap:25px;
 }
 
-.product:hover {
-  transform:translateY(-6px) scale(1.02);
-  box-shadow:0 20px 40px rgba(0,0,0,.4);
+.stat{
+  background:var(--panel);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:20px;
+  padding:25px;
+  text-align:center;
+  animation:fadeUp .7s ease both;
 }
 
-.product img { width:100%; border-radius:12px }
-.product h3 { margin:10px 0 5px }
+.stat:nth-child(2){animation-delay:.1s}
+.stat:nth-child(3){animation-delay:.2s}
 
-.stock { color:var(--muted); font-size:13px }
-.old { text-decoration:line-through; color:#ff6b6b }
-.new { color:#5cff7a; font-weight:600 }
+@keyframes fadeUp{
+  from{transform:translateY(20px);opacity:0}
+  to{transform:none;opacity:1}
+}
 
-/* MODAL */
-.modal {
+.stat h2{
+  margin:0;
+  font-size:34px;
+}
+
+.stat span{
+  color:var(--muted);
+  font-size:14px;
+}
+
+/* ===== PRODUCTS ===== */
+.products{
+  max-width:1400px;
+  margin:40px auto;
+  padding:0 30px 80px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:28px;
+}
+
+.product{
+  position:relative;
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.3));
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:22px;
+  padding:16px;
+  cursor:pointer;
+  overflow:hidden;
+  transition:.35s cubic-bezier(.2,.8,.2,1);
+  animation:fadeUp .7s ease both;
+}
+
+.product::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.12),transparent);
+  opacity:0;
+  transition:.4s;
+}
+
+.product:hover::before{opacity:1}
+.product:hover{
+  transform:translateY(-10px) scale(1.03);
+  box-shadow:0 30px 60px rgba(0,0,0,.6);
+}
+
+.product img{
+  width:100%;
+  border-radius:16px;
+}
+
+.product h3{
+  margin:14px 0 6px;
+  font-size:18px;
+}
+
+.stock{
+  font-size:13px;
+  color:var(--muted);
+}
+
+.price{
+  display:flex;
+  gap:10px;
+  margin-top:8px;
+  align-items:center;
+}
+
+.old{color:#ff7b7b;text-decoration:line-through}
+.new{color:var(--success);font-weight:700;font-size:18px}
+
+/* ===== MODAL ===== */
+.modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.8);
+  background:rgba(0,0,0,.85);
+  backdrop-filter:blur(10px);
   display:flex;
   align-items:center;
   justify-content:center;
   opacity:0;
   pointer-events:none;
-  transition:.35s;
+  transition:.4s;
 }
 
-.modal.show {
+.modal.show{
   opacity:1;
   pointer-events:auto;
 }
 
-.modal-box {
-  background:#111118;
-  width:860px;
+.modal-box{
+  background:linear-gradient(180deg,#121226,#0a0a14);
+  width:900px;
   max-width:95%;
-  border-radius:18px;
-  padding:30px;
+  border-radius:26px;
+  padding:34px;
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:30px;
-  transform:scale(.9);
-  transition:.35s;
+  grid-template-columns:1.1fr .9fr;
+  gap:34px;
+  transform:translateY(40px) scale(.96);
+  transition:.4s cubic-bezier(.2,.8,.2,1);
 }
 
-.modal.show .modal-box { transform:scale(1) }
+.modal.show .modal-box{
+  transform:none;
+}
 
-.modal img { width:100%; border-radius:14px }
+.modal img{width:100%;border-radius:18px}
 
-.status {
+.status{
   display:flex;
   align-items:center;
-  gap:10px;
-  margin-bottom:15px;
+  gap:12px;
+  margin-bottom:20px;
 }
 
-.dot {
-  width:12px;
-  height:12px;
-  border-radius:50%;
-  animation:pulse 1.5s infinite;
+.dot{
+  width:14px;height:14px;border-radius:50%;
+  animation:pulse 1.4s infinite;
 }
 
-.green { background:#3dff6f; box-shadow:0 0 14px #3dff6f }
-.red { background:#ff3d3d; box-shadow:0 0 14px #ff3d3d }
-.yellow { background:#ffd93d; box-shadow:0 0 14px #ffd93d }
+.green{background:var(--success);box-shadow:0 0 16px var(--success)}
+.red{background:var(--danger);box-shadow:0 0 16px var(--danger)}
+.yellow{background:#ffd93d;box-shadow:0 0 16px #ffd93d}
 
-@keyframes pulse {
+@keyframes pulse{
   0%{opacity:1}
   50%{opacity:.4}
   100%{opacity:1}
 }
 
-/* BUY BUTTON */
-.buy-btn {
-  margin-top:20px;
-  padding:14px;
+/* ===== BUTTON ===== */
+.buy-btn{
   width:100%;
+  margin-top:26px;
+  padding:16px;
   border:none;
-  border-radius:12px;
-  background:linear-gradient(135deg,#6d7cff,#8f9bff);
-  color:white;
+  border-radius:16px;
   font-size:16px;
-  font-weight:600;
+  font-weight:700;
   cursor:pointer;
-  transition:.25s;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  transition:.3s;
 }
 
-.buy-btn:hover { transform:scale(1.03) }
-.buy-btn:disabled { background:#333; cursor:not-allowed }
+.buy-btn:hover{transform:scale(1.04)}
+.buy-btn:disabled{background:#333;cursor:not-allowed}
 
-/* FOOTER */
-.footer {
+.footer{
   grid-column:1/3;
   text-align:center;
   font-size:12px;
@@ -173,10 +280,28 @@ header {
 
 <body>
 
+<header>
+  <div class="logo"><img src="assets/logo.png">Nera</div>
+  <div class="search"><input placeholder="Search cosmetics, bundles, packs…"></div>
+  <div class="currency" onclick="cycleCurrency()" id="currencySymbol">£</div>
+</header>
+
+<section class="stats">
+  <div class="stat"><h2 id="sales"></h2><span>Total Sales</span></div>
+  <div class="stat"><h2 id="buyers"></h2><span>Unique Buyers</span></div>
+  <div class="stat"><h2 id="rating"></h2><span>Store Rating</span></div>
+</section>
+
+<section class="products" id="products"></section>
+
+<div class="modal" id="modal" onclick="closeModal(event)">
+  <div class="modal-box" id="modalBox"></div>
+</div>
+
 <script>
-const CONFIG = {
-  currency:{ symbol:"£", rates:{ "£":1,"$":1.27,"€":1.17 }},
-  stats:{ sales:43, buyers:43, rating:"★4.34" },
+const CONFIG={
+ currency:{symbol:"£",rates:{"£":1,"$":1.27,"€":1.17}},
+ stats:{sales:43,buyers:43,rating:"★ 4.34"},
   products:[
     {name:"Crystal Package",img:"assets/product1.png",description:"Unlock hundreds of outfits with the Crystal Package!",stock:12,old:14.99,price:9.99,status:"red"},
     {name:"Icon Series Bundle",img:"assets/product2.png",description:"Currently experiencing issues.",stock:5,old:19.99,price:12.99,status:"red"},
@@ -187,29 +312,9 @@ const CONFIG = {
     {name:"Full Locker",img:"assets/product8.png",description:"Get Every Skin In The Game Including The Nara Series Skins.",stock:300,old:13.99,price:9.99,status:"green"},
     {name:"Kratos Bundle",img:"assets/product7.png",description:"God of War crossover.",stock:1,old:29.99,price:21.99,status:"red"},
     {name:"Unreal Pack",img:"assets/product9.png",description:"Get 10k Arena Points, and get 20+ new skins and pickaxes!",stock:300,old:13.99,price:9.99,status:"red"},
-  ]
+ ]
 };
-</script>
 
-<header>
-  <div class="logo"><img src="assets/logo.png">Nera</div>
-  <div class="search"><input placeholder="Search products..."></div>
-  <div class="top-right" onclick="cycleCurrency()" id="currencySymbol">£</div>
-</header>
-
-<section class="stats">
-  <div class="stat"><h2 id="sales"></h2><span>Sales</span></div>
-  <div class="stat"><h2 id="buyers"></h2><span>Buyers</span></div>
-  <div class="stat"><h2 id="rating"></h2><span>Rating</span></div>
-</section>
-
-<section class="products" id="products"></section>
-
-<div class="modal" id="modal" onclick="closeModal(event)">
-  <div class="modal-box" id="modalBox"></div>
-</div>
-
-<script>
 let currentCurrency="£";
 
 function render(){
@@ -223,58 +328,46 @@ function render(){
 
  CONFIG.products.forEach(p=>{
   products.innerHTML+=`
-   <div class="product" onclick='openModal(${JSON.stringify(p)})'>
+  <div class="product" onclick='openModal(${JSON.stringify(p)})'>
     <img src="${p.img}">
     <h3>${p.name}</h3>
     <div class="stock">${p.stock} in stock</div>
-    <span class="old">${currentCurrency}${(p.old*rate).toFixed(2)}</span>
-    <span class="new">${currentCurrency}${(p.price*rate).toFixed(2)}</span>
-   </div>`;
+    <div class="price">
+      <span class="old">${currentCurrency}${(p.old*rate).toFixed(2)}</span>
+      <span class="new">${currentCurrency}${(p.price*rate).toFixed(2)}</span>
+    </div>
+  </div>`;
  });
 }
 
 function openModal(p){
  const rate=CONFIG.currency.rates[currentCurrency];
  modal.classList.add("show");
-
  modalBox.innerHTML=`
-  <div>
-   <img src="${p.img}">
-   <h2>${p.name}</h2>
-   <p>${p.description}</p>
+ <div>
+  <img src="${p.img}">
+  <h2>${p.name}</h2>
+  <p>${p.description}</p>
+ </div>
+ <div>
+  <div class="status">
+   <div class="dot ${p.status}"></div>
+   <strong>${p.status==="green"?"Available":"Unavailable"}</strong>
   </div>
-
-  <div>
-   <div class="status">
-    <div class="dot ${p.status}"></div>
-    <strong>${p.status === "green" ? "Available" : p.status === "red" ? "Removed / Downtime" : "Fixing / Updating"}</strong>
-   </div>
-
-   <h2>${currentCurrency}${(p.price*rate).toFixed(2)}</h2>
-   <p>Stock: ${p.stock}</p>
-
-   <button class="buy-btn" ${p.status!=="green"?"disabled":""}
-    onclick="purchase(this,'${p.status}')">
-    Purchase
-   </button>
-  </div>
-
-  <div class="footer">Our Discord server • © 2025 Retrac</div>
+  <h2>${currentCurrency}${(p.price*rate).toFixed(2)}</h2>
+  <p>Stock: ${p.stock}</p>
+  <button class="buy-btn" ${p.status!=="green"?"disabled":""} onclick="purchase(this,'${p.status}')">Purchase</button>
+ </div>
+ <div class="footer">© 2025 Nera Store • All items cosmetic only</div>
  `;
 }
 
 function purchase(btn,status){
- btn.innerText="Processing...";
+ btn.innerText="Processing…";
  btn.disabled=true;
-
  setTimeout(()=>{
-  if(status==="green"){
-    btn.innerText="Purchase Successful ✔";
-    btn.style.background="linear-gradient(135deg,#3dff6f,#2ecc71)";
-  } else {
-    btn.innerText="Purchase Failed";
-    btn.style.background="#ff3d3d";
-  }
+  btn.innerText=status==="green"?"Success ✔":"Failed";
+  btn.style.background=status==="green"?"linear-gradient(135deg,#3dff6f,#2ecc71)":"#ff3d3d";
  },1200);
 }
 
@@ -293,5 +386,3 @@ render();
 
 </body>
 </html>
-
-
