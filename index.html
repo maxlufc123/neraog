@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Retrac Store</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+  --bg:#0b0b10;
+  --card:#13131a;
+  --accent:#6d7cff;
+  --text:#fff;
+  --muted:#a0a0b5;
+}
+
+* { box-sizing:border-box; font-family:Inter,Arial,sans-serif }
+
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* HEADER */
+header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 30px;
+}
+
+.logo { display:flex; align-items:center; gap:10px; font-size:20px; font-weight:700 }
+.logo img { width:32px }
+
+.search { flex:1; margin:0 40px }
+.search input {
+  width:100%; padding:12px 15px;
+  background:#1a1a25; border:none;
+  border-radius:8px; color:white;
+}
+
+.top-right { cursor:pointer }
+
+/* STATS */
+.stats {
+  display:flex;
+  justify-content:center;
+  gap:50px;
+  padding:30px 0;
+}
+
+.stat h2 { margin:0 }
+.stat span { color:var(--muted); font-size:14px }
+
+/* PRODUCTS */
+.products {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:25px;
+  padding:30px;
+  max-width:1300px;
+  margin:auto;
+}
+
+.product {
+  background:var(--card);
+  border-radius:16px;
+  padding:15px;
+  cursor:pointer;
+  transition:transform .25s, box-shadow .25s;
+}
+
+.product:hover {
+  transform:translateY(-6px) scale(1.02);
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
+
+.product img { width:100%; border-radius:12px }
+.product h3 { margin:10px 0 5px }
+
+.stock { color:var(--muted); font-size:13px }
+.old { text-decoration:line-through; color:#ff6b6b }
+.new { color:#5cff7a; font-weight:600 }
+
+/* MODAL */
+.modal {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:.35s;
+}
+
+.modal.show {
+  opacity:1;
+  pointer-events:auto;
+}
+
+.modal-box {
+  background:#111118;
+  width:860px;
+  max-width:95%;
+  border-radius:18px;
+  padding:30px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+  transform:scale(.9);
+  transition:.35s;
+}
+
+.modal.show .modal-box { transform:scale(1) }
+
+.modal img { width:100%; border-radius:14px }
+
+.status {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.dot {
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  animation:pulse 1.5s infinite;
+}
+
+.green { background:#3dff6f; box-shadow:0 0 14px #3dff6f }
+.red { background:#ff3d3d; box-shadow:0 0 14px #ff3d3d }
+.yellow { background:#ffd93d; box-shadow:0 0 14px #ffd93d }
+
+@keyframes pulse {
+  0%{opacity:1}
+  50%{opacity:.4}
+  100%{opacity:1}
+}
+
+/* BUY BUTTON */
+.buy-btn {
+  margin-top:20px;
+  padding:14px;
+  width:100%;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg,#6d7cff,#8f9bff);
+  color:white;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.buy-btn:hover { transform:scale(1.03) }
+.buy-btn:disabled { background:#333; cursor:not-allowed }
+
+/* FOOTER */
+.footer {
+  grid-column:1/3;
+  text-align:center;
+  font-size:12px;
+  color:var(--muted);
+  margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<script>
+const CONFIG = {
+  currency:{ symbol:"£", rates:{ "£":1,"$":1.27,"€":1.17 }},
+  stats:{ sales:1, buyers:1, rating:"★5.00" },
+  products:[
+    {name:"Crystal Package",img:"assets/product1.png",description:"Unlock hundreds of outfits with the Crystal Package!",stock:12,old:14.99,price:9.99,status:"red"},
+    {name:"Icon Series Bundle",img:"assets/product2.png",description:"Currently experiencing issues.",stock:5,old:19.99,price:12.99,status:"red"},
+    {name:"Glory Glides",img:"assets/product3.png",description:"Temporary maintenance ongoing.",stock:22,old:9.99,price:6.99,status:"red"},
+    {name:"FNCS Major Bundle",img:"assets/product4.png",description:"Limited FNCS cosmetics.",stock:3,old:24.99,price:18.99,status:"red"},
+    {name:"OG Bundle",img:"assets/product5.png",description:"Classic OG items.",stock:15,old:11.99,price:7.99,status:"red"},
+    {name:"Carti Bundle",img:"assets/product6.png",description:"Exclusive artist bundle.",stock:9,old:17.99,price:13.49,status:"green"},
+    {name:"Full Locker",img:"assets/product8.png",description:"Get Every Skin In The Game Including The Nara Series Skins.",stock:300,old:13.99,price:9.99,status:"green"},
+    {name:"Kratos Bundle",img:"assets/product7.png",description:"God of War crossover.",stock:1,old:29.99,price:21.99,status:"red"},
+    {name:"Unreal Pack",img:"assets/product9.png",description:"Get 10k Arena Points, and get 20+ new skins and pickaxes!",stock:300,old:13.99,price:9.99,status:"red"}
+  ]
+};
+</script>
+
+<header>
+  <div class="logo"><img src="assets/logo.png">Nera</div>
+  <div class="search"><input placeholder="Search products..."></div>
+  <div class="top-right" onclick="cycleCurrency()" id="currencySymbol">£</div>
+</header>
+
+<section class="stats">
+  <div class="stat"><h2 id="sales"></h2><span>Sales</span></div>
+  <div class="stat"><h2 id="buyers"></h2><span>Buyers</span></div>
+  <div class="stat"><h2 id="rating"></h2><span>Rating</span></div>
+</section>
+
+<section class="products" id="products"></section>
+
+<div class="modal" id="modal" onclick="closeModal(event)">
+  <div class="modal-box" id="modalBox"></div>
+</div>
+
+<script>
+let currentCurrency="£";
+
+function render(){
+ currencySymbol.innerText=currentCurrency;
+ sales.innerText=CONFIG.stats.sales;
+ buyers.innerText=CONFIG.stats.buyers;
+ rating.innerText=CONFIG.stats.rating;
+
+ const rate=CONFIG.currency.rates[currentCurrency];
+ products.innerHTML="";
+
+ CONFIG.products.forEach(p=>{
+  products.innerHTML+=`
+   <div class="product" onclick='openModal(${JSON.stringify(p)})'>
+    <img src="${p.img}">
+    <h3>${p.name}</h3>
+    <div class="stock">${p.stock} in stock</div>
+    <span class="old">${currentCurrency}${(p.old*rate).toFixed(2)}</span>
+    <span class="new">${currentCurrency}${(p.price*rate).toFixed(2)}</span>
+   </div>`;
+ });
+}
+
+function openModal(p){
+ const rate=CONFIG.currency.rates[currentCurrency];
+ modal.classList.add("show");
+
+ modalBox.innerHTML=`
+  <div>
+   <img src="${p.img}">
+   <h2>${p.name}</h2>
+   <p>${p.description}</p>
+  </div>
+
+  <div>
+   <div class="status">
+    <div class="dot ${p.status}"></div>
+    <strong>${p.status === "green" ? "Available" : p.status === "red" ? "Removed / Downtime" : "Fixing / Updating"}</strong>
+   </div>
+
+   <h2>${currentCurrency}${(p.price*rate).toFixed(2)}</h2>
+   <p>Stock: ${p.stock}</p>
+
+   <button class="buy-btn" ${p.status!=="green"?"disabled":""}
+    onclick="purchase(this,'${p.status}')">
+    Purchase
+   </button>
+  </div>
+
+  <div class="footer">Our Discord server • © 2025 Retrac</div>
+ `;
+}
+
+function purchase(btn,status){
+ btn.innerText="Processing...";
+ btn.disabled=true;
+
+ setTimeout(()=>{
+  if(status==="green"){
+    btn.innerText="Purchase Successful ✔";
+    btn.style.background="linear-gradient(135deg,#3dff6f,#2ecc71)";
+  } else {
+    btn.innerText="Purchase Failed";
+    btn.style.background="#ff3d3d";
+  }
+ },1200);
+}
+
+function closeModal(e){
+ if(e.target.id==="modal") modal.classList.remove("show");
+}
+
+function cycleCurrency(){
+ const keys=Object.keys(CONFIG.currency.rates);
+ currentCurrency=keys[(keys.indexOf(currentCurrency)+1)%keys.length];
+ render();
+}
+
+render();
+</script>
+
+</body>
+</html>
