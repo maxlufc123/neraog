@@ -307,14 +307,14 @@ header{
 const CONFIG={
  currency:{rates:{"£":1,"$":1.27,"€":1.17}},
  stats:{sales:43,buyers:43,rating:"★ 4.34"},
- globalStatus:{state:"green",text:"Online"},
+ globalStatus:{state:"red",text:"Online"},
  statusPage:[
-  {name:"Fortnite Private",state:"green",text:"Offline"},
-  {name:"HWID Spoofer",state:"green",text:"Offline"},
+  {name:"Fortnite Private",state:"red",text:"Offline"},
+  {name:"HWID Spoofer",state:"red",text:"Offline"},
  ],
  products:[
   {name:"Fortnite Private",img:"assets/fn-priv.png",desc:"...",stock:12,old:14.99,price:9.99,status:"red"},
-  {name:"Hwid Spoofer",img:"assets/spoof.png",desc:"...",stock:5,old:19.99,price:0,status:"red"}
+  {name:"Hwid Spoofer",img:"assets/hwid.png",desc:"...",stock:5,old:19.99,price:0,status:"red"}
  ]
 };
 
@@ -386,6 +386,7 @@ render();
 
 </body>
 </html>
+
 
 
 
