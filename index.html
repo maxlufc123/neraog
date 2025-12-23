@@ -2,332 +2,168 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>extra.gg</title>
+<title>Purchase</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-
 <style>
-:root{
- --bg:#0b0b14;
- --panel:#131327;
- --panel2:#1b1b36;
- --accent:#6d7cff;
- --accent2:#9aa6ff;
- --text:#ffffff;
- --muted:#9aa0c3;
- --green:#3dff6f;
- --red:#ff4d4d;
-}
-
-*{box-sizing:border-box;font-family:Inter,sans-serif}
-
+*{box-sizing:border-box;font-family:Inter,system-ui,Arial}
 body{
- margin:0;
- background:radial-gradient(1200px 700px at top,#18183a,#0b0b14);
- color:var(--text);
-}
-
-.hidden{display:none}
-
-/* ===== LAYOUT ===== */
-.app{
- display:grid;
- grid-template-columns:260px 1fr;
- min-height:100vh;
-}
-
-.sidebar{
- background:linear-gradient(180deg,#101026,#0a0a14);
- padding:26px;
+ background:#0b0b0f;
+ color:white;
  display:flex;
- flex-direction:column;
- gap:24px;
- border-right:1px solid rgba(255,255,255,.06);
-}
-
-.brand{
- font-size:22px;
- font-weight:800;
-}
-
-.nav button{
- background:none;
- border:none;
- color:var(--muted);
- padding:14px 18px;
- border-radius:14px;
- font-weight:700;
- cursor:pointer;
- text-align:left;
- transition:.25s;
-}
-
-.nav button.active,
-.nav button:hover{
- background:linear-gradient(135deg,var(--accent),var(--accent2));
- color:#fff;
-}
-
-.main{padding:40px}
-
-/* ===== STORE ===== */
-.products{
- display:grid;
- grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
- gap:30px;
-}
-
-.product{
- background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(0,0,0,.4));
- border-radius:22px;
- padding:20px;
- cursor:pointer;
- transition:.3s;
- border:1px solid rgba(255,255,255,.06);
-}
-
-.product:hover{
- transform:translateY(-6px);
- box-shadow:0 20px 40px rgba(0,0,0,.45);
-}
-
-.price{
- font-size:22px;
- font-weight:800;
- margin-top:10px;
-}
-
-/* ===== MODAL ===== */
-.modal{
- position:fixed;
- inset:0;
- background:rgba(0,0,0,.85);
- backdrop-filter:blur(10px);
- display:flex;
- align-items:center;
  justify-content:center;
- opacity:0;
- pointer-events:none;
- transition:.25s;
- z-index:50;
+ align-items:center;
+ min-height:100vh;
+ margin:0;
 }
 
-.modal.show{opacity:1;pointer-events:auto}
-
-.modal-box{
- background:linear-gradient(180deg,#161633,#0c0c18);
- width:900px;
- max-width:95%;
- border-radius:28px;
- padding:36px;
- display:grid;
- grid-template-columns:1.2fr .8fr;
- gap:32px;
+.card{
+ background:#12121a;
+ width:100%;
+ max-width:420px;
+ padding:25px;
+ border-radius:16px;
+ box-shadow:0 0 40px rgba(0,0,0,.5);
+ text-align:center;
 }
 
-/* ===== BUTTON ===== */
+h1{margin-top:0}
+.price{font-size:26px;font-weight:700;margin:10px 0}
+
 .btn{
  width:100%;
- padding:16px;
+ padding:14px;
+ margin-top:12px;
  border:none;
- border-radius:14px;
- font-weight:800;
- background:linear-gradient(135deg,var(--accent),var(--accent2));
+ border-radius:10px;
+ background:#5865f2;
  color:white;
+ font-size:16px;
  cursor:pointer;
+ transition:.2s;
 }
+.btn:hover{opacity:.85}
 .btn:disabled{opacity:.5;cursor:not-allowed}
 
-/* ===== LOADER ===== */
 .loader{
- width:42px;
- height:42px;
- border:4px solid rgba(255,255,255,.2);
- border-top:4px solid var(--accent);
+ width:40px;
+ height:40px;
+ border:4px solid #333;
+ border-top:4px solid #5865f2;
  border-radius:50%;
  animation:spin 1s linear infinite;
  margin:20px auto;
 }
-@keyframes spin{to{transform:rotate(360deg)}}
 
-/* ===== MOBILE ===== */
-@media(max-width:850px){
- .app{grid-template-columns:1fr}
- .sidebar{flex-direction:row;justify-content:space-around}
- .modal-box{grid-template-columns:1fr}
+@keyframes spin{
+ to{transform:rotate(360deg)}
+}
+
+.hidden{display:none}
+
+.code{
+ background:#0b0b0f;
+ padding:12px;
+ border-radius:10px;
+ font-family:monospace;
+ letter-spacing:1px;
+ margin-top:10px;
+ word-break:break-all;
+}
+.small{opacity:.6;font-size:13px}
+
+@media(max-width:480px){
+ .card{border-radius:0;height:100vh;justify-content:center}
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="card">
 
-<!-- SIDEBAR -->
-<aside class="sidebar">
- <div class="brand">extra.gg</div>
- <div class="nav">
-  <button class="active">Store</button>
-  <button onclick="openAdmin()">Admin</button>
- </div>
-</aside>
+<!-- STEP 1 -->
+<div id="step1">
+<h1>Fortnite Private</h1>
+<p class="small">Instant digital delivery</p>
+<div class="price">£10.99</div>
 
-<!-- MAIN -->
-<main class="main">
- <div class="products" id="products"></div>
-</main>
+<p class="small">
+⚠ Digital product. No refunds. Chargebacks result in blacklist.
+</p>
 
+<button class="btn" onclick="pay()" id="payBtn">
+Pay with PayPal
+</button>
 </div>
 
-<!-- MODAL -->
-<div class="modal" id="modal" onclick="if(event.target.id==='modal')closeModal()">
- <div class="modal-box" id="modalBox"></div>
+<!-- STEP 2 -->
+<div id="step2" class="hidden">
+<h1>Waiting for payment</h1>
+<div class="loader"></div>
+<p class="small">Complete the PayPal payment, then click below.</p>
+<button class="btn" onclick="confirmPaid()" id="confirmBtn">
+I've Paid
+</button>
+</div>
+
+<!-- STEP 3 -->
+<div id="step3" class="hidden">
+<h1>Payment Confirmed</h1>
+<p class="small">Order ID</p>
+<div class="code" id="order"></div>
+
+<p class="small">Your License Key</p>
+<div class="code" id="license"></div>
+
+<button class="btn" onclick="openDiscord()">
+Open Discord
+</button>
+</div>
+
 </div>
 
 <script>
-/* ================= CONFIG ================= */
-const PAYPAL = "https://www.paypal.com/paypalme/un5forme/";
-const DISCORD = "https://discord.gg/bWuxtutc";
-const ADMIN_KEY = "ADMIN123";
+let locked=false;
 
-/* ================= STATE ================= */
-let locked = false;
-let currentProduct = null;
-
-let PRODUCTS = [
- {name:"Fortnite Private", price:"10.99", desc:"Undetected private build"},
- {name:"HWID Spoofer", price:"4.99", desc:"Full system spoofing"}
-];
-
-/* ================= UTIL ================= */
-function orderID(){
- return "EXTRA-" + Math.random().toString(36).substring(2,10).toUpperCase();
-}
-
-function licenseKey(){
- let saved = localStorage.getItem("license");
- if(saved) return saved;
- let key = "LIC-" + Math.random().toString(36).substring(2,14).toUpperCase();
- localStorage.setItem("license", key);
- return key;
-}
-
-/* ================= RENDER ================= */
-function render(){
- const p = document.getElementById("products");
- p.innerHTML = "";
- PRODUCTS.forEach((x,i)=>{
-  p.innerHTML += `
-   <div class="product" onclick="checkout(${i})">
-    <h3>${x.name}</h3>
-    <small>${x.desc}</small>
-    <div class="price">£${x.price}</div>
-   </div>`;
- });
-}
-render();
-
-/* ================= FLOW ================= */
-function checkout(i){
- currentProduct = PRODUCTS[i];
- locked = false;
-
- document.getElementById("modal").classList.add("show");
- document.getElementById("modalBox").innerHTML = `
-  <div>
-   <h2>${currentProduct.name}</h2>
-   <p>Order ID: <b>${orderID()}</b></p>
-
-   <p style="color:var(--red);font-weight:700">
-    ⚠ DIGITAL PRODUCT<br>
-    NO REFUNDS. CHARGEBACKS = PERMANENT BLACKLIST.
-   </p>
-
-   <label>
-    <input type="checkbox" id="agree"> I understand and agree
-   </label>
-  </div>
-
-  <div>
-   <h1>£${currentProduct.price}</h1>
-
-   <button class="btn" id="payBtn" onclick="pay()">
-    Pay with PayPal
-   </button>
-
-   <button class="btn hidden" id="paidBtn" onclick="confirmPaid()">
-    I've Paid
-   </button>
-  </div>`;
-}
+const PAYPAL =
+"https://www.paypal.com/paypalme/un5forme/10.99";
 
 function pay(){
  if(locked) return;
- if(!document.getElementById("agree").checked)
-  return alert("You must agree before purchasing.");
+ locked=true;
 
- locked = true;
- document.getElementById("payBtn").disabled = true;
- document.getElementById("payBtn").innerText = "Redirecting…";
+ window.open(PAYPAL,"_blank");
 
- window.open(PAYPAL + currentProduct.price, "_blank");
-
- setTimeout(()=>{
-  document.getElementById("paidBtn").classList.remove("hidden");
- },3000);
+ document.getElementById("step1").classList.add("hidden");
+ document.getElementById("step2").classList.remove("hidden");
 }
 
 function confirmPaid(){
- document.getElementById("modalBox").innerHTML = `
-  <div style="grid-column:1/3;text-align:center">
-   <div class="loader"></div>
-   <h2>Confirming Payment…</h2>
-  </div>`;
+ if(document.getElementById("confirmBtn").disabled) return;
+
+ document.getElementById("confirmBtn").disabled=true;
 
  setTimeout(()=>{
-  document.getElementById("modalBox").innerHTML = `
-   <div style="grid-column:1/3;text-align:center">
-    <h1 style="color:var(--green)">Payment Successful ✔</h1>
-    <p>Your License Key:</p>
-    <h2>${licenseKey()}</h2>
+  document.getElementById("step2").classList.add("hidden");
+  document.getElementById("step3").classList.remove("hidden");
 
-    <button class="btn" onclick="window.open('${DISCORD}','_blank')">
-     Open Discord
-    </button>
-   </div>`;
- },2500);
+  document.getElementById("order").innerText = genOrder();
+  document.getElementById("license").innerText = genLicense();
+ },1200);
 }
 
-function closeModal(){
- document.getElementById("modal").classList.remove("show");
+function genOrder(){
+ return "ORD-" + Date.now().toString(36).toUpperCase();
 }
 
-/* ================= ADMIN ================= */
-function openAdmin(){
- const key = prompt("Admin Key:");
- if(key !== ADMIN_KEY) return alert("Access denied");
-
- document.getElementById("modal").classList.add("show");
- document.getElementById("modalBox").innerHTML = `
-  <div style="grid-column:1/3">
-   <h2>Admin Product Editor</h2>
-
-   <label>Name</label>
-   <input id="aname" value="${PRODUCTS[0].name}" style="width:100%;padding:12px">
-
-   <label>Price</label>
-   <input id="aprice" value="${PRODUCTS[0].price}" style="width:100%;padding:12px">
-
-   <button class="btn" onclick="saveAdmin()">Save</button>
-  </div>`;
+function genLicense(){
+ return "LIC-" + Math.random().toString(36)
+ .substring(2,14).toUpperCase();
 }
 
-function saveAdmin(){
- PRODUCTS[0].name = document.getElementById("aname").value;
- PRODUCTS[0].price = document.getElementById("aprice").value;
- closeModal();
- render();
+function openDiscord(){
+ window.location.href="https://discord.gg/";
 }
 </script>
 
