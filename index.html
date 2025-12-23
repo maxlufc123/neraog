@@ -2,197 +2,311 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Checkout</title>
+<title>extra.gg</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{
- box-sizing:border-box;
- font-family:Arial, Helvetica, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+:root{
+ --bg:#07070c;
+ --panel:rgba(20,20,32,.88);
+ --glass:rgba(255,255,255,.06);
+ --accent:#6d7cff;
+ --accent2:#9aa6ff;
+ --text:#fff;
+ --muted:#9aa0c3;
+ --success:#3dff6f;
+ --danger:#ff3d3d;
+ --warning:#ffd84d;
 }
+
+*{box-sizing:border-box;font-family:Inter,sans-serif}
 
 body{
  margin:0;
- background:#0c0f14;
+ background:radial-gradient(1200px 600px at top,#101028,#07070c);
+ color:var(--text);
+}
+
+/* ===== HEADER ===== */
+header{
+ position:sticky;
+ top:0;
+ z-index:20;
+ backdrop-filter:blur(10px);
+ background:linear-gradient(90deg,rgba(109,124,255,.12),rgba(0,0,0,.4));
+ border-bottom:1px solid rgba(255,255,255,.06);
+ display:flex;
+ align-items:center;
+ gap:24px;
+ padding:18px 28px;
+}
+
+.logo{
+ display:flex;
+ align-items:center;
+ gap:12px;
+ font-size:22px;
+ font-weight:800;
+}
+.logo img{width:34px}
+
+.search{flex:1}
+.search input{
+ width:100%;
+ padding:14px 18px;
+ background:var(--glass);
+ border:1px solid rgba(255,255,255,.08);
+ border-radius:14px;
  color:white;
+ outline:none;
+}
+
+.currency{
+ font-weight:800;
+ padding:10px 16px;
+ border-radius:12px;
+ background:linear-gradient(135deg,var(--accent),var(--accent2));
+ cursor:pointer;
+}
+
+/* ===== GLOBAL STATUS ===== */
+.global-status{
+ position:absolute;
+ left:20px;
+ top:78px;
+ display:flex;
+ align-items:center;
+ gap:10px;
+ background:var(--panel);
+ border:1px solid rgba(255,255,255,.08);
+ padding:10px 14px;
+ border-radius:14px;
+ font-weight:700;
+}
+
+/* ===== TABS ===== */
+.tabs{
  display:flex;
  justify-content:center;
- align-items:center;
- min-height:100vh;
+ gap:16px;
+ margin:26px 0 10px;
 }
 
-.box{
- background:#141822;
- width:100%;
- max-width:400px;
+.tab{
+ padding:12px 26px;
+ border-radius:16px;
+ background:var(--glass);
+ border:1px solid rgba(255,255,255,.08);
+ cursor:pointer;
+ font-weight:700;
+ transition:.25s;
+}
+
+.tab.active{
+ background:linear-gradient(135deg,var(--accent),var(--accent2));
+ box-shadow:0 0 18px rgba(109,124,255,.45);
+}
+
+/* ===== DOTS ===== */
+.dot{
+ width:14px;
+ height:14px;
+ border-radius:50%;
+}
+.green{background:var(--success)}
+.yellow{background:var(--warning)}
+.red{background:var(--danger)}
+
+.section{display:none}
+.section.active{display:block}
+
+/* ===== STATS ===== */
+.stats{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ max-width:900px;
+ margin:40px auto 10px;
+ gap:22px;
+}
+
+.stat{
+ background:var(--panel);
+ border-radius:20px;
  padding:24px;
- border-radius:14px;
  text-align:center;
- box-shadow:0 0 25px rgba(0,0,0,.6);
+ border:1px solid rgba(255,255,255,.06);
 }
 
-h1{
- margin:0;
- font-size:24px;
+/* ===== PRODUCTS ===== */
+.products{
+ max-width:1400px;
+ margin:40px auto;
+ padding:0 30px 80px;
+ display:grid;
+ grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+ gap:26px;
 }
 
-.sub{
- opacity:.6;
- font-size:13px;
- margin-bottom:15px;
+.product{
+ background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.35));
+ border:1px solid rgba(255,255,255,.06);
+ border-radius:22px;
+ padding:16px;
+ cursor:pointer;
+ transition:.25s;
 }
 
-.price{
- font-size:28px;
- font-weight:bold;
- margin:10px 0 20px;
+.product:hover{
+ transform:translateY(-6px);
+ box-shadow:0 18px 40px rgba(0,0,0,.45);
 }
 
-button{
+.product img{width:100%;border-radius:16px}
+
+/* ===== MODAL ===== */
+.modal{
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,.82);
+ backdrop-filter:blur(8px);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ opacity:0;
+ pointer-events:none;
+ transition:.25s;
+ z-index:50;
+}
+.modal.show{opacity:1;pointer-events:auto}
+
+.modal-box{
+ background:linear-gradient(180deg,#121226,#0a0a14);
+ width:420px;
+ max-width:95%;
+ border-radius:26px;
+ padding:28px;
+ text-align:center;
+}
+
+.buy-btn{
  width:100%;
+ margin-top:18px;
  padding:14px;
  border:none;
- border-radius:10px;
- font-size:16px;
+ border-radius:16px;
+ font-weight:800;
  cursor:pointer;
- background:#5865f2;
- color:white;
- transition:.2s;
+ background:linear-gradient(135deg,var(--accent),var(--accent2));
 }
 
-button:hover{opacity:.85}
-button:disabled{opacity:.5}
-
 .loader{
- width:36px;
- height:36px;
- border:4px solid #2a2f3a;
- border-top:4px solid #5865f2;
+ width:34px;height:34px;
+ border:4px solid #333;
+ border-top:4px solid var(--accent);
  border-radius:50%;
  animation:spin 1s linear infinite;
  margin:20px auto;
 }
-
-@keyframes spin{
- to{transform:rotate(360deg)}
-}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 .code{
- background:#0c0f14;
+ background:#0b0b10;
  padding:12px;
- border-radius:8px;
+ border-radius:10px;
  font-family:monospace;
  margin-top:8px;
  word-break:break-all;
 }
-
-.small{
- font-size:12px;
- opacity:.6;
-}
-
-.hidden{display:none}
-
-@media(max-width:450px){
- .box{
-  height:100vh;
-  border-radius:0;
-  justify-content:center;
- }
-}
+.small{font-size:12px;opacity:.6}
 </style>
 </head>
 
 <body>
 
-<div class="box">
+<header>
+ <div class="logo"><img src="assets/logo.png">extra.gg</div>
+ <div class="search"><input placeholder="discord.gg/bWuxtutc"></div>
+ <div class="currency">£</div>
+</header>
 
-<!-- STEP 1 -->
-<div id="step1">
-<h1>Fortnite Private</h1>
-<div class="sub">Instant digital product</div>
-
-<div class="price">£10.99</div>
-
-<p class="small">
-⚠ No refunds. Digital item. Chargebacks will result in blacklist.
-</p>
-
-<button onclick="startPayment()" id="payBtn">
-Pay with PayPal
-</button>
+<div class="global-status">
+ <div class="dot green"></div>
+ <span>Online / Undetected</span>
 </div>
 
-<!-- STEP 2 -->
-<div id="step2" class="hidden">
-<h1>Waiting for payment</h1>
-<div class="loader"></div>
-<p class="small">Complete PayPal payment, then confirm.</p>
-
-<button onclick="confirmPaid()" id="confirmBtn">
-I've Paid
-</button>
+<div class="tabs">
+ <div class="tab active">Store</div>
+ <div class="tab">Status</div>
+ <div class="tab">Download</div>
 </div>
 
-<!-- STEP 3 -->
-<div id="step3" class="hidden">
-<h1>Payment Confirmed</h1>
+<section class="section active">
+ <section class="stats">
+  <div class="stat"><h2>452</h2><span>Total Sales</span></div>
+  <div class="stat"><h2>137</h2><span>Unique Buyers</span></div>
+  <div class="stat"><h2>★ 4.8</h2><span>Store Rating</span></div>
+ </section>
 
-<p class="small">Order ID</p>
-<div class="code" id="orderId"></div>
+ <section class="products">
+  <div class="product" onclick="openCheckout('Fortnite Private',10.99,'assets/fn-priv.png')">
+   <img src="assets/fn-priv.png">
+   <h3>Fortnite Private</h3>
+   <strong>£10.99</strong>
+  </div>
 
-<p class="small">License Key</p>
-<div class="code" id="licenseKey"></div>
+  <div class="product" onclick="openCheckout('HWID Spoofer',4.99,'assets/hwid.png')">
+   <img src="assets/hwid.png">
+   <h3>HWID Spoofer</h3>
+   <strong>£4.99</strong>
+  </div>
+ </section>
+</section>
 
-<button onclick="openDiscord()">
-Open Discord
-</button>
-</div>
-
+<div class="modal" id="modal" onclick="if(event.target.id==='modal')closeModal()">
+ <div class="modal-box" id="modalBox"></div>
 </div>
 
 <script>
 let locked=false;
 
-const PAYPAL_LINK =
-"https://www.paypal.com/paypalme/un5forme/10.99";
+function openCheckout(name,price,img){
+ locked=false;
+ modal.classList.add("show");
+ modalBox.innerHTML=`
+  <img src="${img}" style="width:100%;border-radius:14px">
+  <h2>${name}</h2>
+  <strong>£${price}</strong>
+  <p class="small">⚠ Digital product. No refunds.</p>
+  <button class="buy-btn" onclick="pay(${price})">Pay with PayPal</button>
+  <button class="buy-btn" id="paidBtn" style="display:none" onclick="confirmPaid()">I've Paid</button>
+  <div class="loader" id="loader" style="display:none"></div>
+ `;
+}
 
-function startPayment(){
+function pay(price){
  if(locked) return;
  locked=true;
-
- window.open(PAYPAL_LINK,"_blank");
-
- document.getElementById("step1").classList.add("hidden");
- document.getElementById("step2").classList.remove("hidden");
+ window.open("https://www.paypal.com/paypalme/un5forme/"+price,"_blank");
+ setTimeout(()=>document.getElementById("paidBtn").style.display="block",600);
 }
 
 function confirmPaid(){
- const btn = document.getElementById("confirmBtn");
- if(btn.disabled) return;
- btn.disabled=true;
-
+ document.getElementById("loader").style.display="block";
  setTimeout(()=>{
-  document.getElementById("step2").classList.add("hidden");
-  document.getElementById("step3").classList.remove("hidden");
-
-  document.getElementById("orderId").innerText = makeOrder();
-  document.getElementById("licenseKey").innerText = makeKey();
- },1000);
+  modalBox.innerHTML=`
+   <h2>Payment Successful ✔</h2>
+   <p class="small">Order ID</p>
+   <div class="code">ORD-${Date.now()}</div>
+   <p class="small">License Key</p>
+   <div class="code">45b8e96a-76a6-42ec-99d0-263bd099c184</div>
+   <button class="buy-btn" onclick="window.open('https://discord.gg/bWuxtutc')">Open Discord</button>
+  `;
+ },1500);
 }
 
-function makeOrder(){
- return "ORD-" + Date.now().toString(36).toUpperCase();
-}
-
-function makeKey(){
- return "LIC-" + Math.random().toString(36)
- .substring(2,14).toUpperCase();
-}
-
-function openDiscord(){
- window.location.href="https://discord.gg/";
-}
+function closeModal(){modal.classList.remove("show")}
 </script>
 
 </body>
