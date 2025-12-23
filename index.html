@@ -5,183 +5,105 @@
 <title>extra.gg</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
+<style>
 :root{
- --bg:#07070c;
- --panel:rgba(20,20,32,.88);
- --glass:rgba(255,255,255,.06);
+ --bg:#0b0b14;
+ --panel:#131327;
+ --panel2:#1b1b36;
  --accent:#6d7cff;
  --accent2:#9aa6ff;
- --text:#fff;
+ --text:#ffffff;
  --muted:#9aa0c3;
- --success:#3dff6f;
- --danger:#ff3d3d;
- --warning:#ffd84d;
+ --green:#3dff6f;
+ --red:#ff4d4d;
 }
 
 *{box-sizing:border-box;font-family:Inter,sans-serif}
 
 body{
  margin:0;
- background:radial-gradient(1200px 600px at top,#101028,#07070c);
+ background:radial-gradient(1200px 700px at top,#18183a,#0b0b14);
  color:var(--text);
 }
 
-/* ===== HEADER ===== */
-header{
- position:sticky;
- top:0;
- z-index:20;
- backdrop-filter:blur(10px);
- background:linear-gradient(90deg,rgba(109,124,255,.12),rgba(0,0,0,.4));
- border-bottom:1px solid rgba(255,255,255,.06);
- display:flex;
- align-items:center;
- gap:24px;
- padding:18px 28px;
+.hidden{display:none}
+
+/* ===== LAYOUT ===== */
+.app{
+ display:grid;
+ grid-template-columns:260px 1fr;
+ min-height:100vh;
 }
 
-.logo{
+.sidebar{
+ background:linear-gradient(180deg,#101026,#0a0a14);
+ padding:26px;
  display:flex;
- align-items:center;
- gap:12px;
+ flex-direction:column;
+ gap:24px;
+ border-right:1px solid rgba(255,255,255,.06);
+}
+
+.brand{
  font-size:22px;
  font-weight:800;
 }
-.logo img{width:34px}
 
-.search{flex:1}
-.search input{
- width:100%;
+.nav button{
+ background:none;
+ border:none;
+ color:var(--muted);
  padding:14px 18px;
- background:var(--glass);
- border:1px solid rgba(255,255,255,.08);
- border-radius:14px;
- color:white;
- outline:none;
-}
-
-.currency{
- font-weight:800;
- padding:10px 16px;
- border-radius:12px;
- background:linear-gradient(135deg,var(--accent),var(--accent2));
- cursor:pointer;
-}
-
-/* ===== GLOBAL STATUS ===== */
-.global-status{
- position:absolute;
- left:20px;
- top:78px;
- display:flex;
- align-items:center;
- gap:10px;
- background:var(--panel);
- border:1px solid rgba(255,255,255,.08);
- padding:10px 14px;
  border-radius:14px;
  font-weight:700;
-}
-
-/* ===== TABS ===== */
-.tabs{
- display:flex;
- justify-content:center;
- gap:16px;
- margin:26px 0 10px;
-}
-
-.tab{
- padding:12px 26px;
- border-radius:16px;
- background:var(--glass);
- border:1px solid rgba(255,255,255,.08);
  cursor:pointer;
- font-weight:700;
+ text-align:left;
  transition:.25s;
 }
 
-.tab.active{
+.nav button.active,
+.nav button:hover{
  background:linear-gradient(135deg,var(--accent),var(--accent2));
- box-shadow:0 0 18px rgba(109,124,255,.45);
+ color:#fff;
 }
 
-/* ===== STATUS DOTS ===== */
-.dot{
- width:14px;
- height:14px;
- border-radius:50%;
-}
-.green{
- background:var(--success);
- box-shadow:0 0 14px rgba(61,255,111,.9);
-}
-.yellow{
- background:var(--warning);
- box-shadow:0 0 14px rgba(255,216,77,.9);
-}
-.red{
- background:var(--danger);
- box-shadow:0 0 14px rgba(255,61,61,.9);
-}
+.main{padding:40px}
 
-/* ===== SECTIONS ===== */
-.section{display:none}
-.section.active{display:block}
-
-/* ===== STATS ===== */
-.stats{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- max-width:900px;
- margin:40px auto 10px;
- gap:22px;
-}
-
-.stat{
- background:var(--panel);
- border-radius:20px;
- padding:24px;
- text-align:center;
- border:1px solid rgba(255,255,255,.06);
-}
-
-/* ===== PRODUCTS ===== */
+/* ===== STORE ===== */
 .products{
- max-width:1400px;
- margin:40px auto;
- padding:0 30px 80px;
  display:grid;
- grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
- gap:26px;
+ grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+ gap:30px;
 }
 
 .product{
- background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.35));
- border:1px solid rgba(255,255,255,.06);
+ background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(0,0,0,.4));
  border-radius:22px;
- padding:16px;
+ padding:20px;
  cursor:pointer;
- transition:.25s;
+ transition:.3s;
+ border:1px solid rgba(255,255,255,.06);
 }
 
 .product:hover{
  transform:translateY(-6px);
- box-shadow:0 18px 40px rgba(0,0,0,.45);
+ box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
 
-.product img{width:100%;border-radius:16px}
-.product h3{margin:12px 0 6px}
+.price{
+ font-size:22px;
+ font-weight:800;
+ margin-top:10px;
+}
 
 /* ===== MODAL ===== */
 .modal{
  position:fixed;
  inset:0;
- background:rgba(0,0,0,.82);
- backdrop-filter:blur(8px);
+ background:rgba(0,0,0,.85);
+ backdrop-filter:blur(10px);
  display:flex;
  align-items:center;
  justify-content:center;
@@ -190,214 +112,224 @@ header{
  transition:.25s;
  z-index:50;
 }
+
 .modal.show{opacity:1;pointer-events:auto}
 
 .modal-box{
- background:linear-gradient(180deg,#121226,#0a0a14);
- width:880px;
+ background:linear-gradient(180deg,#161633,#0c0c18);
+ width:900px;
  max-width:95%;
- border-radius:26px;
- padding:34px;
+ border-radius:28px;
+ padding:36px;
  display:grid;
- grid-template-columns:1.1fr .9fr;
+ grid-template-columns:1.2fr .8fr;
  gap:32px;
- transform:translateY(30px);
- transition:.25s;
 }
-.modal.show .modal-box{transform:none}
 
-.buy-btn{
+/* ===== BUTTON ===== */
+.btn{
  width:100%;
- margin-top:22px;
  padding:16px;
  border:none;
- border-radius:16px;
+ border-radius:14px;
  font-weight:800;
- cursor:pointer;
  background:linear-gradient(135deg,var(--accent),var(--accent2));
+ color:white;
+ cursor:pointer;
 }
-.buy-btn:disabled{background:#333}
+.btn:disabled{opacity:.5;cursor:not-allowed}
 
-/* ===== STATUS PAGE ===== */
-.status-board{
- max-width:900px;
- margin:40px auto;
- background:var(--panel);
- border-radius:26px;
- padding:30px;
+/* ===== LOADER ===== */
+.loader{
+ width:42px;
+ height:42px;
+ border:4px solid rgba(255,255,255,.2);
+ border-top:4px solid var(--accent);
+ border-radius:50%;
+ animation:spin 1s linear infinite;
+ margin:20px auto;
 }
+@keyframes spin{to{transform:rotate(360deg)}}
 
-.status-row{
- display:flex;
- justify-content:space-between;
- align-items:center;
- padding:14px 0;
- border-bottom:1px solid rgba(255,255,255,.06);
-}
-.status-left{
- display:flex;
- align-items:center;
- gap:14px;
-}
-
-/* ===== DOWNLOAD ===== */
-.download-box{
- max-width:900px;
- margin:40px auto;
- background:var(--panel);
- border-radius:26px;
- padding:40px;
+/* ===== MOBILE ===== */
+@media(max-width:850px){
+ .app{grid-template-columns:1fr}
+ .sidebar{flex-direction:row;justify-content:space-around}
+ .modal-box{grid-template-columns:1fr}
 }
 </style>
 </head>
 
 <body>
 
-<header>
- <div class="logo"><img src="assets/logo.png">extra.gg</div>
- <div class="search"><input placeholder="discord.gg/bWuxtutc"></div>
- <div class="currency" id="currencySymbol" onclick="cycleCurrency()">£</div>
-</header>
+<div class="app">
 
-<div class="global-status">
- <div class="dot" id="globalDot"></div>
- <span id="globalText"></span>
+<!-- SIDEBAR -->
+<aside class="sidebar">
+ <div class="brand">extra.gg</div>
+ <div class="nav">
+  <button class="active">Store</button>
+  <button onclick="openAdmin()">Admin</button>
+ </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+ <div class="products" id="products"></div>
+</main>
+
 </div>
 
-<div class="tabs">
- <div class="tab active" onclick="switchTab('store',this)">Store</div>
- <div class="tab" onclick="switchTab('status',this)">Status</div>
- <div class="tab" onclick="switchTab('download',this)">Download</div>
-</div>
-
-<section class="section active" id="store">
- <section class="stats">
-  <div class="stat"><h2 id="sales"></h2><span>Total Sales</span></div>
-  <div class="stat"><h2 id="buyers"></h2><span>Unique Buyers</span></div>
-  <div class="stat"><h2 id="rating"></h2><span>Store Rating</span></div>
- </section>
- <section class="products" id="products"></section>
-</section>
-
-<section class="section" id="status">
- <div class="status-board">
-  <h2>Nara Services Status 📢</h2>
-  <div id="statusList"></div>
-  <br>
-  <small style="color:var(--muted)">
-   🟢 Fully Functional | 🟡 Functional but experiencing issues | 🔴 Offline<br><br>
-   Check uptime at <a href="https://maxlufc123.github.io/neraog/" target="_blank">status.projectnera.site</a><br><br>
-   <strong>All Servers Will Be Up Once Released.</strong>
-  </small>
- </div>
-</section>
-
-<section class="section" id="download">
- <div class="download-box">
-  <h2>More Info</h2>
-  <p>discord.gg/bWuxtutc</p>
- </div>
-</section>
-
-<div class="modal" id="modal" onclick="if(event.target.id==='modal')modal.classList.remove('show')">
+<!-- MODAL -->
+<div class="modal" id="modal" onclick="if(event.target.id==='modal')closeModal()">
  <div class="modal-box" id="modalBox"></div>
 </div>
 
 <script>
-const CONFIG={
- currency:{rates:{"£":1,"$":1.27,"€":1.17}},
- stats:{sales:0,buyers:0,rating:"★ 0"},
- globalStatus:{state:"green",text:"Online / Undetected"},
- statusPage:[
-  {name:"Fortnite Private",state:"green",text:"Undetected"},
-  {name:"HWID Spoofer",state:"green",text:"Undetected"},
- ],
- products:[
-  {name:"Fortnite Private",img:"assets/fn-priv.png",desc:"...",stock:6,old:9.99,price:4.99,status:"green"},
-  {name:"Hwid Spoofer",img:"assets/hwid.png",desc:"...",stock:6,old:9.99,price:4.99,status:"green"}
- ]
-};
+/* ================= CONFIG ================= */
+const PAYPAL = "https://www.paypal.com/paypalme/un5forme/";
+const DISCORD = "https://discord.gg/bWuxtutc";
+const ADMIN_KEY = "ADMIN123";
 
-let currentCurrency="£";
+/* ================= STATE ================= */
+let locked = false;
+let currentProduct = null;
 
+let PRODUCTS = [
+ {name:"Fortnite Private", price:"10.99", desc:"Undetected private build"},
+ {name:"HWID Spoofer", price:"4.99", desc:"Full system spoofing"}
+];
+
+/* ================= UTIL ================= */
+function orderID(){
+ return "EXTRA-" + Math.random().toString(36).substring(2,10).toUpperCase();
+}
+
+function licenseKey(){
+ let saved = localStorage.getItem("license");
+ if(saved) return saved;
+ let key = "LIC-" + Math.random().toString(36).substring(2,14).toUpperCase();
+ localStorage.setItem("license", key);
+ return key;
+}
+
+/* ================= RENDER ================= */
 function render(){
- currencySymbol.innerText=currentCurrency;
- sales.innerText=CONFIG.stats.sales;
- buyers.innerText=CONFIG.stats.buyers;
- rating.innerText=CONFIG.stats.rating;
-
- globalDot.className=`dot ${CONFIG.globalStatus.state}`;
- globalText.innerText=CONFIG.globalStatus.text;
-
- products.innerHTML="";
- CONFIG.products.forEach((p,i)=>{
-  products.innerHTML+=`
-   <div class="product" onclick="openModal(${i})">
-    <img src="${p.img}">
-    <h3>${p.name}</h3>
-    <div>${p.stock} in stock</div>
-    <strong>${currentCurrency}${p.price}</strong>
-   </div>`;
- });
-
- statusList.innerHTML="";
- CONFIG.statusPage.forEach(s=>{
-  statusList.innerHTML+=`
-   <div class="status-row">
-    <div class="status-left">
-     <div class="dot ${s.state}"></div>
-     <strong>${s.name}</strong>
-    </div>
-    <span>${s.text}</span>
+ const p = document.getElementById("products");
+ p.innerHTML = "";
+ PRODUCTS.forEach((x,i)=>{
+  p.innerHTML += `
+   <div class="product" onclick="checkout(${i})">
+    <h3>${x.name}</h3>
+    <small>${x.desc}</small>
+    <div class="price">£${x.price}</div>
    </div>`;
  });
 }
+render();
 
-function openModal(i){
- const p=CONFIG.products[i];
- modal.classList.add("show");
- modalBox.innerHTML=`
- <div>
-  <img src="${p.img}" style="width:100%;border-radius:18px">
-  <h2>${p.name}</h2>
- </div>
- <div>
-  <div class="dot ${p.status}"></div>
-  <h2>${currentCurrency}${p.price}</h2>
-  <button class="buy-btn" ${p.status!=="green"?"disabled":""}>Purchase</button>
- </div>`;
+/* ================= FLOW ================= */
+function checkout(i){
+ currentProduct = PRODUCTS[i];
+ locked = false;
+
+ document.getElementById("modal").classList.add("show");
+ document.getElementById("modalBox").innerHTML = `
+  <div>
+   <h2>${currentProduct.name}</h2>
+   <p>Order ID: <b>${orderID()}</b></p>
+
+   <p style="color:var(--red);font-weight:700">
+    ⚠ DIGITAL PRODUCT<br>
+    NO REFUNDS. CHARGEBACKS = PERMANENT BLACKLIST.
+   </p>
+
+   <label>
+    <input type="checkbox" id="agree"> I understand and agree
+   </label>
+  </div>
+
+  <div>
+   <h1>£${currentProduct.price}</h1>
+
+   <button class="btn" id="payBtn" onclick="pay()">
+    Pay with PayPal
+   </button>
+
+   <button class="btn hidden" id="paidBtn" onclick="confirmPaid()">
+    I've Paid
+   </button>
+  </div>`;
 }
 
-function cycleCurrency(){
- const keys=Object.keys(CONFIG.currency.rates);
- currentCurrency=keys[(keys.indexOf(currentCurrency)+1)%keys.length];
+function pay(){
+ if(locked) return;
+ if(!document.getElementById("agree").checked)
+  return alert("You must agree before purchasing.");
+
+ locked = true;
+ document.getElementById("payBtn").disabled = true;
+ document.getElementById("payBtn").innerText = "Redirecting…";
+
+ window.open(PAYPAL + currentProduct.price, "_blank");
+
+ setTimeout(()=>{
+  document.getElementById("paidBtn").classList.remove("hidden");
+ },3000);
+}
+
+function confirmPaid(){
+ document.getElementById("modalBox").innerHTML = `
+  <div style="grid-column:1/3;text-align:center">
+   <div class="loader"></div>
+   <h2>Confirming Payment…</h2>
+  </div>`;
+
+ setTimeout(()=>{
+  document.getElementById("modalBox").innerHTML = `
+   <div style="grid-column:1/3;text-align:center">
+    <h1 style="color:var(--green)">Payment Successful ✔</h1>
+    <p>Your License Key:</p>
+    <h2>${licenseKey()}</h2>
+
+    <button class="btn" onclick="window.open('${DISCORD}','_blank')">
+     Open Discord
+    </button>
+   </div>`;
+ },2500);
+}
+
+function closeModal(){
+ document.getElementById("modal").classList.remove("show");
+}
+
+/* ================= ADMIN ================= */
+function openAdmin(){
+ const key = prompt("Admin Key:");
+ if(key !== ADMIN_KEY) return alert("Access denied");
+
+ document.getElementById("modal").classList.add("show");
+ document.getElementById("modalBox").innerHTML = `
+  <div style="grid-column:1/3">
+   <h2>Admin Product Editor</h2>
+
+   <label>Name</label>
+   <input id="aname" value="${PRODUCTS[0].name}" style="width:100%;padding:12px">
+
+   <label>Price</label>
+   <input id="aprice" value="${PRODUCTS[0].price}" style="width:100%;padding:12px">
+
+   <button class="btn" onclick="saveAdmin()">Save</button>
+  </div>`;
+}
+
+function saveAdmin(){
+ PRODUCTS[0].name = document.getElementById("aname").value;
+ PRODUCTS[0].price = document.getElementById("aprice").value;
+ closeModal();
  render();
 }
-
-function switchTab(id,el){
- document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
- document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
- el.classList.add("active");
- document.getElementById(id).classList.add("active");
-}
-
-render();
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
