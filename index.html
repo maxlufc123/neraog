@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>extra.gg Dashboard</title>
+<title>extra.gg Premium Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
+/* ========== COLORS ========== */
 :root{
- --bg:#0a0a14;
- --panel:#12121f;
+ --bg:#0a0a18;
+ --panel:#12122b;
  --glass:rgba(255,255,255,.05);
  --accent:#6d7cff;
  --accent2:#9aa6ff;
@@ -19,195 +19,141 @@
  --success:#3dff6f;
  --danger:#ff3d3d;
  --warning:#ffd84d;
- --shadow:0 10px 30px rgba(0,0,0,.5);
+ --shadow:0 10px 30px rgba(0,0,0,.6);
 }
 
+/* ========== GLOBAL ========== */
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
+body{background:#0b0b18;color:var(--text);overflow-x:hidden;}
 
-body{
- background:radial-gradient(circle at top,#101028,#0a0a14);
- color:var(--text);
- min-height:100vh;
- display:flex;
+/* ========== PARTICLE BACKGROUND ========== */
+canvas#bgCanvas{
+ position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;
 }
 
-/* ===== SIDEBAR ===== */
+/* ========== HEADER ========== */
+header{
+ position:sticky;top:0;z-index:50;
+ backdrop-filter:blur(12px);
+ background:linear-gradient(90deg,rgba(109,124,255,.12),rgba(0,0,0,.4));
+ border-bottom:1px solid rgba(255,255,255,.08);
+ display:flex;align-items:center;justify-content:space-between;
+ padding:18px 30px;
+ animation:fadeIn 1s ease forwards;
+}
+header .logo{
+ display:flex;align-items:center;gap:12px;font-size:24px;font-weight:800;
+}
+header .logo img{width:40px;transition:.5s}
+header .logo img:hover{transform:rotate(15deg)}
+header input{
+ flex:1;margin:0 20px;padding:14px 18px;border-radius:14px;
+ border:1px solid rgba(255,255,255,.08);background:var(--glass);
+ color:#fff;outline:none;transition:.3s
+}
+header input:focus{border-color:var(--accent)}
+header .currency{
+ padding:12px 20px;border-radius:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+ font-weight:800;cursor:pointer;transition:.3s
+}
+header .currency:hover{opacity:.85}
+
+/* ========== SIDEBAR ========== */
 .sidebar{
- width:220px;
- background:var(--panel);
- display:flex;
- flex-direction:column;
- padding:30px 20px;
- gap:40px;
- box-shadow:var(--shadow);
+ position:fixed;top:0;left:0;width:220px;height:100vh;
+ background:var(--panel);display:flex;flex-direction:column;padding:30px 20px;gap:50px;
+ box-shadow:var(--shadow);z-index:49;transform:translateX(-100%);
+ animation:slideInSidebar 1s forwards;
 }
-.sidebar .logo{
- display:flex;
- align-items:center;
- gap:12px;
- font-size:22px;
- font-weight:800;
- margin-bottom:20px;
-}
-.sidebar .logo img{width:40px}
-.sidebar nav{
- display:flex;
- flex-direction:column;
- gap:20px;
-}
+@keyframes slideInSidebar{0%{transform:translateX(-100%)}100%{transform:translateX(0)}}
+.sidebar .logo{font-size:22px;gap:12px;display:flex;align-items:center}
+.sidebar .logo img{width:36px}
+.sidebar nav{display:flex;flex-direction:column;gap:18px}
 .sidebar nav button{
- display:flex;
- align-items:center;
- gap:12px;
- padding:12px 16px;
- border:none;
- border-radius:14px;
- background:var(--glass);
- color:var(--text);
- font-weight:600;
- cursor:pointer;
- transition:.3s;
+ display:flex;align-items:center;gap:12px;padding:12px 16px;border:none;border-radius:14px;
+ background:var(--glass);color:var(--text);font-weight:600;cursor:pointer;transition:.3s;
 }
 .sidebar nav button.active{
  background:linear-gradient(135deg,var(--accent),var(--accent2));
- box-shadow:0 0 15px rgba(109,124,255,.55);
- transform:scale(1.03);
+ box-shadow:0 0 20px rgba(109,124,255,.55);transform:scale(1.05)
 }
 .sidebar nav button:hover:not(.active){background:rgba(255,255,255,.08)}
 
-/* ===== MAIN CONTENT ===== */
+/* ========== MAIN CONTENT ========== */
 .main{
- flex:1;
- padding:30px 40px;
- overflow-y:auto;
+ margin-left:220px;padding:30px 40px;transition:.3s;
 }
-
-.main header{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-bottom:40px;
-}
-
-.main header input{
- width:60%;
- padding:12px 16px;
- border-radius:14px;
- border:1px solid rgba(255,255,255,.08);
- background:var(--glass);
- color:#fff;
- outline:none;
-}
-.main header input:focus{border-color:var(--accent)}
-
-.global-status{
- display:flex;
- align-items:center;
- gap:12px;
- background:var(--panel);
- border-radius:16px;
- padding:10px 14px;
- font-weight:700;
- margin-bottom:30px;
- box-shadow:var(--shadow);
-}
+.main header{display:flex;align-items:center;margin-bottom:30px;gap:20px;animation:fadeIn 1s ease forwards}
+.global-status{display:flex;align-items:center;gap:12px;background:var(--panel);border-radius:16px;padding:12px 16px;margin-bottom:30px;box-shadow:var(--shadow)}
 .dot{width:16px;height:16px;border-radius:50%}
 .green{background:var(--success)}
 .red{background:var(--danger)}
 .yellow{background:var(--warning)}
 
-/* ===== CARDS ===== */
+/* ========== CARDS ========== */
 .cards{
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
- gap:24px;
- margin-bottom:40px;
+ display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px;margin-bottom:40px
 }
 .card{
- background:var(--panel);
- border-radius:24px;
- padding:24px;
- text-align:center;
- transition:.3s;
- border:1px solid rgba(255,255,255,.06);
+ background:var(--panel);border-radius:24px;padding:24px;text-align:center;
+ transition:.5s;opacity:0;transform:translateY(40px);animation:cardFade 1s forwards;
+ border:1px solid rgba(255,255,255,.08);
 }
-.card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
-.card h2{font-size:26px;margin-bottom:8px}
+@keyframes cardFade{to{opacity:1;transform:translateY(0)}}
+.card h2{font-size:28px;margin-bottom:10px}
 .card span{color:var(--muted)}
 
-/* ===== PRODUCTS ===== */
+/* ========== PRODUCTS ========== */
 .products{
- display:grid;
- grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
- gap:28px;
+ display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:28px
 }
 .product{
  background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(0,0,0,.3));
- border-radius:22px;
- overflow:hidden;
- cursor:pointer;
- transition:.3s;
+ border-radius:24px;overflow:hidden;cursor:pointer;transition:.5s;position:relative;
  border:1px solid rgba(255,255,255,.08);
 }
-.product:hover{
- transform:translateY(-8px);
- box-shadow:var(--shadow);
+.product::after{
+ content:"";position:absolute;inset:0;border-radius:24px;background:rgba(109,124,255,.05);
+ opacity:0;transition:.4s;
 }
+.product:hover::after{opacity:1}
+.product:hover{transform:translateY(-10px) scale(1.02);box-shadow:0 15px 35px rgba(109,124,255,.45)}
 .product img{width:100%;display:block}
-.product h3{margin:12px;padding:0 12px;font-size:20px}
+.product h3{margin:12px;padding:0 12px;font-size:20px;transition:.3s}
 .product strong{display:block;margin:6px 12px 12px;font-size:18px;color:var(--accent2)}
+.product:hover h3{color:var(--accent2)}
 
-/* ===== MODAL ===== */
+/* ========== MODAL ========== */
 .modal{
- position:fixed;
- inset:0;
- background:rgba(0,0,0,.9);
- display:flex;
- align-items:center;
- justify-content:center;
- opacity:0;
- pointer-events:none;
- transition:.3s;
- z-index:50;
+ position:fixed;inset:0;background:rgba(0,0,0,.95);display:flex;
+ align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.4s;z-index:99
 }
 .modal.show{opacity:1;pointer-events:auto}
 .modal-box{
- background:var(--panel);
- border-radius:28px;
- padding:36px;
- width:480px;
- max-width:90%;
- text-align:center;
- transform:translateY(-50px);
- transition:.4s;
+ background:var(--panel);border-radius:28px;padding:36px;width:480px;max-width:90%;
+ text-align:center;transform:translateY(-50px);transition:.4s
 }
 .modal.show .modal-box{transform:translateY(0)}
 .buy-btn{
- width:100%;
- padding:16px;
- border:none;
- border-radius:18px;
- font-weight:800;
- cursor:pointer;
- background:linear-gradient(135deg,var(--accent),var(--accent2));
- transition:.25s;
- margin-top:18px;
+ width:100%;padding:16px;border:none;border-radius:18px;font-weight:800;
+ cursor:pointer;background:linear-gradient(135deg,var(--accent),var(--accent2));
+ transition:.25s;margin-top:18px
 }
 .buy-btn:hover{opacity:.9}
 .loader{
- width:36px;height:36px;
- border:4px solid #333;
- border-top:4px solid var(--accent);
- border-radius:50%;
- animation:spin 1s linear infinite;
- margin:24px auto;
+ width:36px;height:36px;border:4px solid #333;border-top:4px solid var(--accent);
+ border-radius:50%;animation:spin 1s linear infinite;margin:24px auto
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 .code{background:#0b0b10;padding:14px;border-radius:12px;font-family:monospace;margin-top:10px;word-break:break-all}
 .small{font-size:13px;opacity:.6;text-align:center}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
 </style>
 </head>
 <body>
+<canvas id="bgCanvas"></canvas>
 
 <div class="sidebar">
  <div class="logo"><img src="assets/logo.png">extra.gg</div>
@@ -226,19 +172,17 @@ body{
   <div class="currency">£</div>
  </header>
 
- <!-- GLOBAL STATUS -->
  <div class="global-status">
   <div class="dot green"></div>
   <span>Online / Undetected</span>
  </div>
 
- <!-- SECTIONS -->
  <section class="section active" id="dashboard">
   <div class="cards">
-   <div class="card"><h2>452</h2><span>Total Sales</span></div>
-   <div class="card"><h2>137</h2><span>Unique Buyers</span></div>
-   <div class="card"><h2>★ 4.8</h2><span>Store Rating</span></div>
-   <div class="card"><h2>24</h2><span>Products</span></div>
+   <div class="card" data-count="452"><h2>0</h2><span>Total Sales</span></div>
+   <div class="card" data-count="137"><h2>0</h2><span>Unique Buyers</span></div>
+   <div class="card" data-count="4.8"><h2>0</h2><span>Store Rating</span></div>
+   <div class="card" data-count="24"><h2>0</h2><span>Products</span></div>
   </div>
  </section>
 
@@ -276,12 +220,12 @@ body{
  </section>
 </div>
 
-<!-- MODAL -->
 <div class="modal" id="modal" onclick="if(event.target.id==='modal')closeModal()">
  <div class="modal-box" id="modalBox"></div>
 </div>
 
 <script>
+// ===== TABS =====
 const buttons=document.querySelectorAll(".sidebar nav button");
 const sections=document.querySelectorAll(".section");
 const modal=document.getElementById("modal");
@@ -296,6 +240,7 @@ buttons.forEach(btn=>{
  });
 });
 
+// ===== MODAL =====
 let locked=false;
 function openCheckout(name,price,img){
  locked=false;
@@ -313,7 +258,7 @@ function openCheckout(name,price,img){
 function pay(price){
  if(locked) return;
  locked=true;
- window.open("https://www.paypal.com/paypalme/Jadencox190513@icloud.com/"+price,"_blank");
+ window.open("https://www.paypal.com/paypalme/un5forme/"+price,"_blank");
  setTimeout(()=>document.getElementById("paidBtn").style.display="block",600);
 }
 function confirmPaid(){
@@ -330,7 +275,45 @@ function confirmPaid(){
  },1500);
 }
 function closeModal(){modal.classList.remove("show")}
-</script>
 
+// ===== STATS COUNTER =====
+const counters=document.querySelectorAll(".card[data-count]");
+counters.forEach(card=>{
+ let target=parseFloat(card.dataset.count),i=0;
+ let interval=setInterval(()=>{
+   if(i<target){i+=(target/50);card.querySelector("h2").innerText=Math.floor(i)}
+   else{card.querySelector("h2").innerText=target;clearInterval(interval)}
+ },40);
+});
+
+// ===== PARTICLES BACKGROUND =====
+const canvas=document.getElementById("bgCanvas"),ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+let particles=[];
+for(let i=0;i<120;i++){
+ particles.push({
+   x:Math.random()*canvas.width,
+   y:Math.random()*canvas.height,
+   r:Math.random()*2+1,
+   dx:(Math.random()-0.5)*0.5,
+   dy:(Math.random()-0.5)*0.5
+ });
+}
+function animate(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ particles.forEach(p=>{
+   ctx.beginPath();
+   ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+   ctx.fillStyle="rgba(109,124,255,0.4)";
+   ctx.fill();
+   p.x+=p.dx;p.y+=p.dy;
+   if(p.x<0||p.x>canvas.width)p.dx*=-1;
+   if(p.y<0||p.y>canvas.height)p.dy*=-1;
+ });
+ requestAnimationFrame(animate);
+}
+animate();
+window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+</script>
 </body>
 </html>
