@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-/* ================= ROOT ================= */
 :root{
  --bg:#05050c;
  --bg2:#0b0b1f;
@@ -23,7 +22,6 @@
  --muted:#a4aad9;
 }
 
-/* ================= RESET ================= */
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
 body{
  min-height:100vh;
@@ -32,7 +30,7 @@ body{
  overflow-x:hidden;
 }
 
-/* ================= ANIMATED BG ================= */
+/* animated bg */
 .bg{
  position:fixed; inset:0; z-index:-1;
  background:
@@ -40,33 +38,39 @@ body{
  radial-gradient(circle at 80% 70%,rgba(154,166,255,.18),transparent 45%);
  animation:bgMove 18s infinite alternate;
 }
-@keyframes bgMove{
- to{transform:translate(-60px,40px)}
-}
+@keyframes bgMove{to{transform:translate(-60px,40px)}}
 
-/* ================= HEADER ================= */
+/* header */
 header{
  position:sticky; top:0; z-index:10;
  backdrop-filter:blur(18px);
  background:rgba(6,6,20,.7);
  border-bottom:1px solid var(--border);
- padding:22px 60px;
+ padding:20px 60px;
  display:flex;
  align-items:center;
  justify-content:space-between;
 }
 
 .logo{
- font-size:28px;
+ display:flex;
+ align-items:center;
+ gap:14px;
+ cursor:pointer;
+}
+.logo img{
+ width:42px;
+ height:42px;
+}
+.logo span{
+ font-size:26px;
  font-weight:800;
- letter-spacing:.5px;
 }
 
 .tabs{
  display:flex;
  gap:14px;
 }
-
 .tabs button{
  padding:12px 22px;
  border-radius:16px;
@@ -77,14 +81,13 @@ header{
  cursor:pointer;
  transition:.3s;
 }
-
 .tabs button.active,
 .tabs button:hover{
  color:#fff;
  background:linear-gradient(135deg,var(--accent),var(--accent2));
 }
 
-/* ================= GLOBAL STATUS ================= */
+/* global status */
 .status{
  position:fixed;
  left:30px;
@@ -98,15 +101,12 @@ header{
  gap:10px;
  font-weight:700;
 }
-.dot{
- width:12px;height:12px;border-radius:50%;
-}
+.dot{width:12px;height:12px;border-radius:50%}
 .green{background:var(--success)}
 .yellow{background:var(--warning)}
 .red{background:var(--danger)}
 
-/* ================= MAIN ================= */
-main{padding:80px 70px}
+main{padding:90px 70px}
 .section{
  display:none;
  opacity:0;
@@ -119,18 +119,19 @@ main{padding:80px 70px}
  transform:none;
 }
 
-/* ================= PRODUCTS ================= */
+/* products */
 .grid{
  display:grid;
- grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
- gap:40px;
+ grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+ gap:44px;
 }
 
 .card{
  background:var(--glass);
  border:1px solid var(--border);
- border-radius:28px;
+ border-radius:30px;
  padding:24px;
+ cursor:pointer;
  transition:.4s;
  animation:slideUp .6s ease forwards;
 }
@@ -139,37 +140,30 @@ main{padding:80px 70px}
 }
 
 .card:hover{
- transform:translateY(-10px);
+ transform:translateY(-12px);
  box-shadow:0 30px 80px rgba(0,0,0,.6);
 }
 
 .card img{
  width:100%;
- height:180px;
+ height:200px;
  object-fit:cover;
- border-radius:20px;
+ border-radius:22px;
 }
 
-.card h3{margin-top:14px;font-size:22px}
+.card h3{margin-top:16px;font-size:22px}
 .desc{color:var(--muted);font-size:14px;margin:8px 0}
 
 .prices{
  display:flex;
- gap:10px;
+ gap:12px;
  align-items:center;
 }
-.old{
- text-decoration:line-through;
- opacity:.4;
-}
-.new{
- font-size:22px;
- font-weight:800;
- color:var(--accent2);
-}
+.old{text-decoration:line-through;opacity:.4}
+.new{font-size:22px;font-weight:800;color:var(--accent2)}
 
 .tag{
- display:inline-flex;
+ display:flex;
  align-items:center;
  gap:8px;
  font-size:13px;
@@ -187,18 +181,18 @@ main{padding:80px 70px}
  cursor:pointer;
 }
 
-/* ================= DASHBOARD ================= */
+/* dashboard */
 .empty{
  color:var(--muted);
  text-align:center;
  padding:80px;
 }
 
-/* ================= MODAL ================= */
+/* modal */
 .modal{
  position:fixed;
  inset:0;
- background:rgba(0,0,0,.82);
+ background:rgba(0,0,0,.85);
  display:flex;
  align-items:center;
  justify-content:center;
@@ -211,18 +205,26 @@ main{padding:80px 70px}
  opacity:1;
  pointer-events:auto;
 }
+
 .modalBox{
  background:linear-gradient(180deg,#12122a,#0a0a18);
  border-radius:30px;
  padding:40px;
- width:480px;
- max-width:94%;
+ width:520px;
+ max-width:95%;
  text-align:center;
  animation:drop .5s ease;
 }
 @keyframes drop{
  from{transform:translateY(-30px);opacity:0}
 }
+
+.modalBox img{
+ width:100%;
+ border-radius:22px;
+ margin-bottom:14px;
+}
+
 .modalBox input{
  width:100%;
  padding:14px;
@@ -233,6 +235,7 @@ main{padding:80px 70px}
  margin:14px 0;
  outline:none;
 }
+
 .pay{
  width:100%;
  padding:16px;
@@ -242,6 +245,7 @@ main{padding:80px 70px}
  font-weight:800;
  cursor:pointer;
 }
+
 .success{color:var(--success)}
 </style>
 </head>
@@ -250,7 +254,10 @@ main{padding:80px 70px}
 <div class="bg"></div>
 
 <header>
- <div class="logo">Extra</div>
+ <div class="logo" onclick="location.reload()">
+  <img src="assets/logo.png">
+  <span>Extra</span>
+ </div>
  <div class="tabs">
   <button class="active" data-tab="store">Store</button>
   <button data-tab="dashboard">Dashboard</button>
@@ -266,9 +273,8 @@ main{padding:80px 70px}
 
 <section id="store" class="section active">
  <div class="grid">
-  
-  <!-- Fortnite Private -->
-  <div class="card">
+
+  <div class="card" onclick="openProduct('Fortnite Private','assets/fn-priv.png',10.99)">
    <img src="assets/fn-priv.png">
    <h3>Fortnite Private</h3>
    <p class="desc">Private Fortnite build with frequent updates.</p>
@@ -277,11 +283,10 @@ main{padding:80px 70px}
     <span class="new">£10.99</span>
    </div>
    <div class="tag"><div class="dot green"></div>Undetected</div>
-   <button class="buy" onclick="checkout('Fortnite Private',10.99)">Buy</button>
+   <button class="buy">Buy</button>
   </div>
 
-  <!-- HWID Spoofer -->
-  <div class="card">
+  <div class="card" onclick="openProduct('HWID Spoofer','assets/hwid.png',4.99)">
    <img src="assets/hwid.png">
    <h3>HWID Spoofer</h3>
    <p class="desc">Secure HWID spoofing tool.</p>
@@ -290,7 +295,7 @@ main{padding:80px 70px}
     <span class="new">£4.99</span>
    </div>
    <div class="tag"><div class="dot yellow"></div>Updating</div>
-   <button class="buy" onclick="checkout('HWID Spoofer',4.99)">Buy</button>
+   <button class="buy">Buy</button>
   </div>
 
  </div>
@@ -315,15 +320,16 @@ const emptyDash=document.getElementById("emptyDash");
 
 let owned=[];
 
-/* checkout */
-function checkout(name,price){
+/* open product */
+function openProduct(name,img,price){
  modal.classList.add("show");
  modalBox.innerHTML=`
+  <img src="${img}">
   <h2>${name}</h2>
   <p>Discount code</p>
   <input id="code" placeholder="XMAS25">
   <h3 id="total">£${price.toFixed(2)}</h3>
-  <button class="pay" onclick="confirm('${name}',${price})">Confirm Purchase</button>
+  <button class="pay" onclick="confirmPurchase('${name}',${price})">Purchase</button>
  `;
  document.getElementById("code").oninput=e=>{
   document.getElementById("total").textContent=
@@ -333,7 +339,7 @@ function checkout(name,price){
  };
 }
 
-function confirm(name){
+function confirmPurchase(name){
  owned.push(name);
  modalBox.innerHTML=`<h2 class="success">Purchase Complete ✔</h2>`;
  setTimeout(()=>{
