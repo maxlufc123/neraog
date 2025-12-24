@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Extra Cheats</title>
+<title>Extra - Premium Shop</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-/* ---------- COLORS ---------- */
 :root{
  --bg:#0b0c1f;
  --panel:#111130;
@@ -24,14 +23,12 @@
  --secondary:#6d7cff;
 }
 
-/* ---------- GLOBAL ---------- */
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
 body{background:#0b0c1f;color:var(--text);overflow-x:hidden;position:relative}
 
-/* ---------- PARTICLE BACKGROUND ---------- */
 canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2}
 
-/* ---------- SIDEBAR ---------- */
+/* Sidebar */
 .sidebar{
  position:fixed;top:0;left:0;width:250px;height:100vh;
  background:linear-gradient(180deg,#0e0e2a,#111130);
@@ -60,7 +57,7 @@ canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2}
 .sidebar nav button.active{background:linear-gradient(135deg,var(--highlight),var(--secondary));box-shadow:0 0 25px rgba(255,79,255,.55)}
 .sidebar nav button:hover:not(.active){background:rgba(255,255,255,.08)}
 
-/* ---------- TOPBAR ---------- */
+/* Topbar */
 .topbar{
  position:sticky;top:0;z-index:40;
  backdrop-filter:blur(12px);
@@ -81,10 +78,10 @@ canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2}
 }
 .topbar .currency:hover{opacity:.85}
 
-/* ---------- MAIN CONTENT ---------- */
+/* Main content */
 .main{margin-left:250px;padding:40px 50px;transition:.4s;overflow-x:hidden}
 
-/* ---------- GLOBAL STATUS ---------- */
+/* Global status */
 .global-status{
  display:flex;align-items:center;gap:12px;background:var(--panel);
  border-radius:20px;padding:12px 20px;margin-bottom:30px;
@@ -95,31 +92,11 @@ canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2}
 .red{background:var(--danger)}
 .yellow{background:var(--warning)}
 
-/* ---------- SECTIONS ---------- */
-.section{display:none;opacity:0;transform:translateX(50px);transition:.5s}
-.section.active{display:block;opacity:1;transform:translateX(0)}
+/* Sections */
+.section{display:none;opacity:0;transform:translateY(50px);transition:.5s}
+.section.active{display:block;opacity:1;transform:translateY(0)}
 
-/* ---------- CARDS ---------- */
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:30px;margin-bottom:40px}
-.card{
- background:var(--panel);border-radius:24px;padding:28px;text-align:center;
- transition:.5s;opacity:0;transform:translateY(50px);
- border:1px solid rgba(255,255,255,.08);box-shadow:0 10px 40px rgba(0,0,0,.7);
- position:relative;overflow:hidden;
-}
-.card h2{font-size:30px;margin-bottom:12px}
-.card span{color:var(--muted)}
-.card .progress{
- width:80%;height:8px;background:rgba(255,255,255,.08);
- margin:12px auto;border-radius:6px;overflow:hidden
-}
-.card .progress-bar{
- height:100%;width:0%;background:linear-gradient(90deg,var(--highlight),var(--secondary));
- transition:1s
-}
-.card.animate{opacity:1;transform:translateY(0)}
-
-/* ---------- PRODUCTS ---------- */
+/* Products */
 .products{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:30px}
 .product{
  background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.3));
@@ -127,17 +104,24 @@ canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2}
  border:1px solid rgba(255,255,255,.08);
  perspective:1000px;
  transition:.5s;position:relative;
+ transform-style: preserve-3d;
 }
-.product .front,.product .back{width:100%;height:100%;border-radius:26px;backface-visibility:hidden;position:absolute;top:0;left:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.product .front,.product .back{
+ width:100%;height:100%;border-radius:26px;
+ backface-visibility:hidden;position:absolute;top:0;left:0;
+ display:flex;flex-direction:column;align-items:center;justify-content:center;
+ padding:20px;transition:.5s;
+}
 .product .front img{width:100%;border-radius:16px;transition:.4s}
 .product .front h3{margin:12px;font-size:20px;color:var(--text)}
 .product .front strong{color:var(--accent2)}
-.product .back{background:var(--panel);transform:rotateY(180deg);padding:20px;gap:10px;color:var(--muted)}
+.product .back{background:var(--panel);transform:rotateY(180deg);gap:12px;color:var(--muted)}
 .product:hover{transform:rotateY(180deg)}
 .product:hover .front{transform:rotateY(180deg)}
 .product:hover .back{transform:rotateY(0)}
+.product .discount{margin-top:8px;padding:10px;border-radius:12px;background:rgba(255,255,255,.05);width:80%;text-align:center}
 
-/* ---------- MODAL ---------- */
+/* Modal */
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.95);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.4s;z-index:99}
 .modal.show{opacity:1;pointer-events:auto}
 .modal-box{background:var(--panel);border-radius:28px;padding:36px;width:500px;max-width:90%;text-align:center;transform:translateY(-50px);transition:.4s}
@@ -146,14 +130,6 @@ canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2}
 .buy-btn:hover{opacity:.9}
 .loader{width:36px;height:36px;border:4px solid #333;border-top:4px solid var(--accent);border-radius:50%;animation:spin 1s linear infinite;margin:24px auto}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* ---------- FORM ---------- */
-form{display:flex;flex-direction:column;gap:18px;margin-top:20px}
-form input{padding:14px 18px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:var(--glass);color:#fff;outline:none;transition:.3s}
-form input:focus{border-color:var(--accent)}
-form button{padding:14px;font-weight:800;border:none;border-radius:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));cursor:pointer;transition:.3s;color:#fff}
-form button:hover{opacity:.9}
-.discount{padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:var(--glass);color:#fff;width:60%;margin:0 auto;text-align:center}
 </style>
 </head>
 <body>
@@ -162,10 +138,8 @@ form button:hover{opacity:.9}
 <div class="sidebar">
  <div class="logo"><img src="assets/logo.png">Extra</div>
  <nav>
-  <button class="active" data-tab="login">Login</button>
-  <button data-tab="register">Register</button>
+  <button class="active" data-tab="store">Store</button>
   <button data-tab="dashboard">Dashboard</button>
-  <button data-tab="store">Store</button>
  </nav>
 </div>
 
@@ -180,36 +154,15 @@ form button:hover{opacity:.9}
   <span>Online / Undetected</span>
  </div>
 
- <!-- LOGIN -->
- <section class="section active" id="login">
-  <h2>Login</h2>
-  <form id="loginForm">
-   <input type="text" placeholder="Username" required>
-   <input type="password" placeholder="Password" required>
-   <button type="submit">Login</button>
-  </form>
- </section>
-
- <!-- REGISTER -->
- <section class="section" id="register">
-  <h2>Register</h2>
-  <form id="registerForm">
-   <input type="text" placeholder="Username" required>
-   <input type="password" placeholder="Password" required>
-   <button type="submit">Register</button>
-  </form>
- </section>
-
  <!-- DASHBOARD -->
  <section class="section" id="dashboard">
   <h2 style="margin-bottom:20px;text-align:center">Your Purchases</h2>
-  <div class="cards" id="dashboardCards"></div>
+  <div class="products" id="dashboardCards"></div>
  </section>
 
  <!-- STORE -->
- <section class="section" id="store">
+ <section class="section active" id="store">
   <h2 style="margin-bottom:20px;text-align:center">Store</h2>
-  <div class="discount">Use code <strong>XMAS25</strong> for 25% off!</div>
   <div class="products">
    <div class="product">
     <div class="front">
@@ -219,7 +172,7 @@ form button:hover{opacity:.9}
     </div>
     <div class="back">
      <p>Full private Fortnite client. Lifetime updates.</p>
-     <input type="text" placeholder="Discount code" class="discountCode">
+     <div class="discount">Use code <strong>XMAS25</strong> for 25% off!</div>
      <button class="buy-btn" onclick="openCheckout('Fortnite Private',10.99,'assets/fn-priv.png')">Buy Now</button>
     </div>
    </div>
@@ -231,7 +184,7 @@ form button:hover{opacity:.9}
     </div>
     <div class="back">
      <p>Secure HWID Spoofer for PC. Lifetime support.</p>
-     <input type="text" placeholder="Discount code" class="discountCode">
+     <div class="discount">Use code <strong>XMAS25</strong> for 25% off!</div>
      <button class="buy-btn" onclick="openCheckout('HWID Spoofer',4.99,'assets/hwid.png')">Buy Now</button>
     </div>
    </div>
@@ -244,7 +197,7 @@ form button:hover{opacity:.9}
 </div>
 
 <script>
-// USERS PURCHASES
+// PURCHASES
 let purchases=[];
 
 // TABS
@@ -259,33 +212,19 @@ buttons.forEach(btn=>{
  });
 });
 
-// LOGIN / REGISTER
-document.getElementById("loginForm").addEventListener("submit",e=>{
- e.preventDefault();
- alert("Logged in successfully! (Temporary)");
- document.querySelector('button[data-tab="dashboard"]').click();
- updateDashboard();
-});
-document.getElementById("registerForm").addEventListener("submit",e=>{
- e.preventDefault();
- alert("Registered successfully! (Temporary)");
- document.querySelector('button[data-tab="dashboard"]').click();
- updateDashboard();
-});
-
 // MODAL + DISCOUNT
 let locked=false;
 function openCheckout(name,price,img){
  locked=false;
- const codeInput = document.querySelector('.product .discountCode');
- let finalPrice=price;
- if(codeInput && codeInput.value.toUpperCase()==='XMAS25'){finalPrice=(price*0.75).toFixed(2);}
+ const discountCode = "XMAS25";
+ let finalPrice = price;
  modal.classList.add("show");
  modalBox.innerHTML=`
   <img src="${img}" style="width:100%;border-radius:16px;margin-bottom:20px">
   <h2>${name}</h2>
   <strong>£${finalPrice}</strong>
   <p class="small">⚠ Digital product. No refunds.</p>
+  <div class="discount">Enter discount code at checkout: <strong>${discountCode}</strong></div>
   <button class="buy-btn" onclick="pay('${name}',${finalPrice},'${img}')">Pay with PayPal</button>
   <button class="buy-btn" id="paidBtn" style="display:none" onclick="confirmPaid('${name}','${finalPrice}','${img}')">I've Paid</button>
   <div class="loader" id="loader" style="display:none"></div>
@@ -323,18 +262,26 @@ function updateDashboard(){
  if(purchases.length===0){dash.innerHTML="<p style='text-align:center;color:var(--muted)'>No purchases yet.</p>"; return;}
  purchases.forEach(p=>{
   const card=document.createElement("div");
-  card.classList.add("card","animate");
-  card.innerHTML=`<img src="${p.img}" style="width:100%;border-radius:14px;margin-bottom:10px"><h2>${p.name}</h2><span>£${p.price}</span>`;
+  card.classList.add("product");
+  card.innerHTML=`
+   <div class="front">
+    <img src="${p.img}">
+    <h3>${p.name}</h3>
+    <strong>£${p.price}</strong>
+   </div>
+   <div class="back">
+    <p>Purchased successfully!</p>
+   </div>`;
   dash.appendChild(card);
-});
+ });
 }
 
 // PARTICLES BACKGROUND
 const canvas=document.getElementById("bgCanvas"),ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;canvas.height=window.innerHeight;
 let particles=[];
-for(let i=0;i<200;i++){
- particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1.5,dx:(Math.random()-0.5)*1,dy:(Math.random()-0.5)*1});
+for(let i=0;i<250;i++){
+ particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1.5,dx:(Math.random()-0.5)*1.5,dy:(Math.random()-0.5)*1.5});
 }
 function animate(){
  ctx.clearRect(0,0,canvas.width,canvas.height);
