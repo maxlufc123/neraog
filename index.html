@@ -8,9 +8,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root{
- --bg:#0b0c1f;
- --panel:#111130;
- --glass:rgba(255,255,255,.05);
+ --bg:#0c0c21;
+ --panel:#10102c;
+ --glass:rgba(255,255,255,.04);
  --accent:#6d7cff;
  --accent2:#ff4fff;
  --text:#ffffff;
@@ -18,33 +18,33 @@
  --success:#3dff6f;
  --danger:#ff3d3d;
  --warning:#ffd84d;
- --shadow:0 10px 40px rgba(0,0,0,.7);
+ --shadow:0 15px 45px rgba(0,0,0,.7);
  --highlight:#ff4fff;
  --secondary:#6d7cff;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
-body{background:#0b0c1f;color:var(--text);overflow-x:hidden;position:relative}
+body{background:#0c0c21;color:var(--text);overflow-x:hidden;position:relative}
 
 canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2}
 
 /* Sidebar */
 .sidebar{
- position:fixed;top:0;left:0;width:250px;height:100vh;
- background:linear-gradient(180deg,#0e0e2a,#111130);
- display:flex;flex-direction:column;padding:40px 20px;gap:40px;
+ position:fixed;top:0;left:0;width:260px;height:100vh;
+ background:linear-gradient(180deg,#0f0f36,#111130);
+ display:flex;flex-direction:column;padding:50px 25px;gap:50px;
  box-shadow:var(--shadow);z-index:50;transform:translateX(-100%);
  animation:slideIn 1s forwards;
 }
 @keyframes slideIn{0%{transform:translateX(-100%)}100%{transform:translateX(0)}}
-.sidebar .logo{display:flex;align-items:center;gap:12px;font-size:26px;font-weight:800;color:var(--highlight)}
-.sidebar .logo img{width:44px;transition:.5s}
-.sidebar .logo img:hover{transform:rotate(15deg)}
-.sidebar nav{display:flex;flex-direction:column;gap:20px;margin-top:20px}
+.sidebar .logo{display:flex;align-items:center;gap:15px;font-size:28px;font-weight:800;color:var(--highlight)}
+.sidebar .logo img{width:50px;transition:.5s}
+.sidebar .logo img:hover{transform:rotate(20deg)}
+.sidebar nav{display:flex;flex-direction:column;gap:25px;margin-top:30px}
 .sidebar nav button{
- padding:14px 18px;border:none;border-radius:16px;
+ padding:15px 20px;border:none;border-radius:18px;
  background:var(--glass);color:var(--text);font-weight:600;
- cursor:pointer;transition:.4s;display:flex;align-items:center;gap:12px;
+ cursor:pointer;transition:.5s;display:flex;align-items:center;gap:15px;
  position:relative;overflow:hidden;
 }
 .sidebar nav button.active::after{
@@ -54,40 +54,41 @@ canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2}
  border-radius:2px;
 }
 @keyframes slideLine{0%{width:0}100%{width:100%}}
-.sidebar nav button.active{background:linear-gradient(135deg,var(--highlight),var(--secondary));box-shadow:0 0 25px rgba(255,79,255,.55)}
+.sidebar nav button.active{background:linear-gradient(135deg,var(--highlight),var(--secondary));box-shadow:0 0 30px rgba(255,79,255,.55)}
 .sidebar nav button:hover:not(.active){background:rgba(255,255,255,.08)}
 
 /* Topbar */
 .topbar{
  position:sticky;top:0;z-index:40;
- backdrop-filter:blur(12px);
- background:linear-gradient(90deg,rgba(109,124,255,.08),rgba(0,0,0,.3));
+ backdrop-filter:blur(14px);
+ background:linear-gradient(90deg,rgba(109,124,255,.1),rgba(0,0,0,.3));
  display:flex;align-items:center;justify-content:space-between;
- padding:18px 30px;border-bottom:1px solid rgba(255,255,255,.08);
- border-radius:0 0 20px 20px;
+ padding:18px 40px;border-bottom:1px solid rgba(255,255,255,.08);
+ border-radius:0 0 25px 25px;
+ transition:.4s;
 }
 .topbar input{
- flex:1;margin:0 20px;padding:14px 18px;border-radius:14px;
+ flex:1;margin:0 20px;padding:15px 20px;border-radius:16px;
  border:1px solid rgba(255,255,255,.08);background:var(--glass);
  color:#fff;outline:none;transition:.3s
 }
 .topbar input:focus{border-color:var(--accent)}
 .topbar .currency{
- padding:12px 20px;border-radius:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+ padding:14px 24px;border-radius:18px;background:linear-gradient(135deg,var(--accent),var(--accent2));
  font-weight:800;cursor:pointer;transition:.3s
 }
 .topbar .currency:hover{opacity:.85}
 
 /* Main content */
-.main{margin-left:250px;padding:40px 50px;transition:.4s;overflow-x:hidden}
+.main{margin-left:260px;padding:50px 60px;transition:.5s;overflow-x:hidden}
 
 /* Global status */
 .global-status{
- display:flex;align-items:center;gap:12px;background:var(--panel);
- border-radius:20px;padding:12px 20px;margin-bottom:30px;
+ display:flex;align-items:center;gap:14px;background:var(--panel);
+ border-radius:24px;padding:14px 25px;margin-bottom:35px;
  box-shadow:var(--shadow);transition:.4s;
 }
-.dot{width:16px;height:16px;border-radius:50%}
+.dot{width:18px;height:18px;border-radius:50%}
 .green{background:var(--success)}
 .red{background:var(--danger)}
 .yellow{background:var(--warning)}
@@ -99,36 +100,35 @@ canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2}
 /* Products */
 .products{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:30px}
 .product{
- background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.3));
- border-radius:26px;overflow:hidden;cursor:pointer;
+ background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.35));
+ border-radius:28px;overflow:hidden;cursor:pointer;
  border:1px solid rgba(255,255,255,.08);
- perspective:1000px;
- transition:.5s;position:relative;
+ perspective:1200px;transition:.6s;position:relative;
  transform-style: preserve-3d;
 }
 .product .front,.product .back{
- width:100%;height:100%;border-radius:26px;
+ width:100%;height:100%;border-radius:28px;
  backface-visibility:hidden;position:absolute;top:0;left:0;
  display:flex;flex-direction:column;align-items:center;justify-content:center;
- padding:20px;transition:.5s;
+ padding:20px;transition:.5s;gap:12px;
 }
-.product .front img{width:100%;border-radius:16px;transition:.4s}
-.product .front h3{margin:12px;font-size:20px;color:var(--text)}
+.product .front img{width:100%;border-radius:18px;transition:.4s}
+.product .front h3{font-size:22px;color:var(--text)}
 .product .front strong{color:var(--accent2)}
-.product .back{background:var(--panel);transform:rotateY(180deg);gap:12px;color:var(--muted)}
+.product .back{background:var(--panel);transform:rotateY(180deg);gap:15px;color:var(--muted)}
 .product:hover{transform:rotateY(180deg)}
 .product:hover .front{transform:rotateY(180deg)}
 .product:hover .back{transform:rotateY(0)}
-.product .discount{margin-top:8px;padding:10px;border-radius:12px;background:rgba(255,255,255,.05);width:80%;text-align:center}
+.product .discount{margin-top:8px;padding:10px;border-radius:14px;background:rgba(255,255,255,.05);width:80%;text-align:center}
 
 /* Modal */
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.95);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.4s;z-index:99}
 .modal.show{opacity:1;pointer-events:auto}
-.modal-box{background:var(--panel);border-radius:28px;padding:36px;width:500px;max-width:90%;text-align:center;transform:translateY(-50px);transition:.4s}
+.modal-box{background:var(--panel);border-radius:30px;padding:40px;width:550px;max-width:95%;text-align:center;transform:translateY(-50px);transition:.4s}
 .modal.show .modal-box{transform:translateY(0)}
-.buy-btn{width:100%;padding:16px;border:none;border-radius:18px;font-weight:800;cursor:pointer;background:linear-gradient(135deg,var(--accent),var(--accent2));transition:.25s;margin-top:18px}
+.buy-btn{width:100%;padding:18px;border:none;border-radius:20px;font-weight:800;cursor:pointer;background:linear-gradient(135deg,var(--accent),var(--accent2));transition:.25s;margin-top:18px}
 .buy-btn:hover{opacity:.9}
-.loader{width:36px;height:36px;border:4px solid #333;border-top:4px solid var(--accent);border-radius:50%;animation:spin 1s linear infinite;margin:24px auto}
+.loader{width:40px;height:40px;border:4px solid #333;border-top:4px solid var(--accent);border-radius:50%;animation:spin 1s linear infinite;margin:24px auto}
 @keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
@@ -156,39 +156,14 @@ canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2}
 
  <!-- DASHBOARD -->
  <section class="section" id="dashboard">
-  <h2 style="margin-bottom:20px;text-align:center">Your Purchases</h2>
+  <h2 style="margin-bottom:25px;text-align:center">Your Purchases</h2>
   <div class="products" id="dashboardCards"></div>
  </section>
 
  <!-- STORE -->
  <section class="section active" id="store">
-  <h2 style="margin-bottom:20px;text-align:center">Store</h2>
-  <div class="products">
-   <div class="product">
-    <div class="front">
-     <img src="assets/fn-priv.png">
-     <h3>Fortnite Private</h3>
-     <strong>£10.99</strong>
-    </div>
-    <div class="back">
-     <p>Full private Fortnite client. Lifetime updates.</p>
-     <div class="discount">Use code <strong>XMAS25</strong> for 25% off!</div>
-     <button class="buy-btn" onclick="openCheckout('Fortnite Private',10.99,'assets/fn-priv.png')">Buy Now</button>
-    </div>
-   </div>
-   <div class="product">
-    <div class="front">
-     <img src="assets/hwid.png">
-     <h3>HWID Spoofer</h3>
-     <strong>£4.99</strong>
-    </div>
-    <div class="back">
-     <p>Secure HWID Spoofer for PC. Lifetime support.</p>
-     <div class="discount">Use code <strong>XMAS25</strong> for 25% off!</div>
-     <button class="buy-btn" onclick="openCheckout('HWID Spoofer',4.99,'assets/hwid.png')">Buy Now</button>
-    </div>
-   </div>
-  </div>
+  <h2 style="margin-bottom:25px;text-align:center">Store</h2>
+  <div class="products" id="storeProducts"></div>
  </section>
 </div>
 
@@ -197,6 +172,34 @@ canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2}
 </div>
 
 <script>
+// ALL PRODUCTS
+const productList=[
+ {name:"Fortnite Private",price:10.99,img:"assets/fn-priv.png",desc:"Full private Fortnite client. Lifetime updates."},
+ {name:"HWID Spoofer",price:4.99,img:"assets/hwid.png",desc:"Secure HWID Spoofer for PC. Lifetime support."},
+ {name:"Extra Module",price:7.99,img:"assets/module.png",desc:"Premium module for extra features."},
+ {name:"Zombie Pack",price:12.99,img:"assets/zombie.png",desc:"Zombie content pack, includes skins and cheats."},
+ {name:"Skin Locker",price:8.99,img:"assets/skin.png",desc:"Unlock exclusive skins instantly."},
+ {name:"Performance Booster",price:6.99,img:"assets/booster.png",desc:"Optimized settings to boost FPS."}
+];
+
+// RENDER PRODUCTS
+const storeDiv=document.getElementById("storeProducts");
+productList.forEach(p=>{
+ const div=document.createElement("div"); div.classList.add("product");
+ div.innerHTML=`
+  <div class="front">
+   <img src="${p.img}">
+   <h3>${p.name}</h3>
+   <strong>£${p.price}</strong>
+  </div>
+  <div class="back">
+   <p>${p.desc}</p>
+   <div class="discount">Use code <strong>XMAS25</strong> for 25% off!</div>
+   <button class="buy-btn" onclick="openCheckout('${p.name}',${p.price},'${p.img}')">Buy Now</button>
+  </div>`;
+ storeDiv.appendChild(div);
+});
+
 // PURCHASES
 let purchases=[];
 
@@ -216,19 +219,17 @@ buttons.forEach(btn=>{
 let locked=false;
 function openCheckout(name,price,img){
  locked=false;
- const discountCode = "XMAS25";
- let finalPrice = price;
+ const discountCode="XMAS25";
  modal.classList.add("show");
  modalBox.innerHTML=`
-  <img src="${img}" style="width:100%;border-radius:16px;margin-bottom:20px">
+  <img src="${img}" style="width:100%;border-radius:18px;margin-bottom:20px">
   <h2>${name}</h2>
-  <strong>£${finalPrice}</strong>
+  <strong>£${price}</strong>
   <p class="small">⚠ Digital product. No refunds.</p>
   <div class="discount">Enter discount code at checkout: <strong>${discountCode}</strong></div>
-  <button class="buy-btn" onclick="pay('${name}',${finalPrice},'${img}')">Pay with PayPal</button>
-  <button class="buy-btn" id="paidBtn" style="display:none" onclick="confirmPaid('${name}','${finalPrice}','${img}')">I've Paid</button>
-  <div class="loader" id="loader" style="display:none"></div>
- `;
+  <button class="buy-btn" onclick="pay('${name}',${price},'${img}')">Pay with PayPal</button>
+  <button class="buy-btn" id="paidBtn" style="display:none" onclick="confirmPaid('${name}','${price}','${img}')">I've Paid</button>
+  <div class="loader" id="loader" style="display:none"></div>`;
 }
 function pay(name,price,img){
  if(locked) return; locked=true;
@@ -280,7 +281,7 @@ function updateDashboard(){
 const canvas=document.getElementById("bgCanvas"),ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;canvas.height=window.innerHeight;
 let particles=[];
-for(let i=0;i<250;i++){
+for(let i=0;i<300;i++){
  particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1.5,dx:(Math.random()-0.5)*1.5,dy:(Math.random()-0.5)*1.5});
 }
 function animate(){
@@ -288,7 +289,7 @@ function animate(){
  particles.forEach(p=>{
    ctx.beginPath();
    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-   ctx.fillStyle="rgba(255,79,255,0.3)";
+   ctx.fillStyle="rgba(255,79,255,0.25)";
    ctx.fill();
    p.x+=p.dx;p.y+=p.dy;
    if(p.x<0||p.x>canvas.width)p.dx*=-1;
