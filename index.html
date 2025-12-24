@@ -2,303 +2,366 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Extra - Premium Shop</title>
+<title>Extra — Private Store</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
+/* ================= ROOT ================= */
 :root{
- --bg:#0c0c21;
- --panel:#10102c;
- --glass:rgba(255,255,255,.04);
- --accent:#6d7cff;
- --accent2:#ff4fff;
- --text:#ffffff;
- --muted:#9aa0c3;
- --success:#3dff6f;
- --danger:#ff3d3d;
+ --bg:#05050c;
+ --bg2:#0b0b1f;
+ --glass:rgba(255,255,255,.06);
+ --border:rgba(255,255,255,.1);
+ --accent:#6f7cff;
+ --accent2:#9aa6ff;
+ --success:#35ff8b;
  --warning:#ffd84d;
- --shadow:0 15px 45px rgba(0,0,0,.7);
- --highlight:#ff4fff;
- --secondary:#6d7cff;
+ --danger:#ff4d5e;
+ --text:#ffffff;
+ --muted:#a4aad9;
 }
 
+/* ================= RESET ================= */
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
-body{background:#0c0c21;color:var(--text);overflow-x:hidden;position:relative}
+body{
+ min-height:100vh;
+ background:linear-gradient(120deg,var(--bg),var(--bg2));
+ color:var(--text);
+ overflow-x:hidden;
+}
 
-canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2}
+/* ================= ANIMATED BG ================= */
+.bg{
+ position:fixed; inset:0; z-index:-1;
+ background:
+ radial-gradient(circle at 20% 20%,rgba(111,124,255,.25),transparent 40%),
+ radial-gradient(circle at 80% 70%,rgba(154,166,255,.18),transparent 45%);
+ animation:bgMove 18s infinite alternate;
+}
+@keyframes bgMove{
+ to{transform:translate(-60px,40px)}
+}
 
-/* Sidebar */
-.sidebar{
- position:fixed;top:0;left:0;width:260px;height:100vh;
- background:linear-gradient(180deg,#0f0f36,#111130);
- display:flex;flex-direction:column;padding:50px 25px;gap:50px;
- box-shadow:var(--shadow);z-index:50;transform:translateX(-100%);
- animation:slideIn 1s forwards;
+/* ================= HEADER ================= */
+header{
+ position:sticky; top:0; z-index:10;
+ backdrop-filter:blur(18px);
+ background:rgba(6,6,20,.7);
+ border-bottom:1px solid var(--border);
+ padding:22px 60px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
 }
-@keyframes slideIn{0%{transform:translateX(-100%)}100%{transform:translateX(0)}}
-.sidebar .logo{display:flex;align-items:center;gap:15px;font-size:28px;font-weight:800;color:var(--highlight)}
-.sidebar .logo img{width:50px;transition:.5s}
-.sidebar .logo img:hover{transform:rotate(20deg)}
-.sidebar nav{display:flex;flex-direction:column;gap:25px;margin-top:30px}
-.sidebar nav button{
- padding:15px 20px;border:none;border-radius:18px;
- background:var(--glass);color:var(--text);font-weight:600;
- cursor:pointer;transition:.5s;display:flex;align-items:center;gap:15px;
- position:relative;overflow:hidden;
-}
-.sidebar nav button.active::after{
- content:'';position:absolute;left:0;bottom:0;height:4px;width:100%;
- background:linear-gradient(90deg,var(--highlight),var(--secondary));
- animation:slideLine 0.6s forwards;
- border-radius:2px;
-}
-@keyframes slideLine{0%{width:0}100%{width:100%}}
-.sidebar nav button.active{background:linear-gradient(135deg,var(--highlight),var(--secondary));box-shadow:0 0 30px rgba(255,79,255,.55)}
-.sidebar nav button:hover:not(.active){background:rgba(255,255,255,.08)}
 
-/* Topbar */
-.topbar{
- position:sticky;top:0;z-index:40;
- backdrop-filter:blur(14px);
- background:linear-gradient(90deg,rgba(109,124,255,.1),rgba(0,0,0,.3));
- display:flex;align-items:center;justify-content:space-between;
- padding:18px 40px;border-bottom:1px solid rgba(255,255,255,.08);
- border-radius:0 0 25px 25px;
- transition:.4s;
+.logo{
+ font-size:28px;
+ font-weight:800;
+ letter-spacing:.5px;
 }
-.topbar input{
- flex:1;margin:0 20px;padding:15px 20px;border-radius:16px;
- border:1px solid rgba(255,255,255,.08);background:var(--glass);
- color:#fff;outline:none;transition:.3s
-}
-.topbar input:focus{border-color:var(--accent)}
-.topbar .currency{
- padding:14px 24px;border-radius:18px;background:linear-gradient(135deg,var(--accent),var(--accent2));
- font-weight:800;cursor:pointer;transition:.3s
-}
-.topbar .currency:hover{opacity:.85}
 
-/* Main content */
-.main{margin-left:260px;padding:50px 60px;transition:.5s;overflow-x:hidden}
-
-/* Global status */
-.global-status{
- display:flex;align-items:center;gap:14px;background:var(--panel);
- border-radius:24px;padding:14px 25px;margin-bottom:35px;
- box-shadow:var(--shadow);transition:.4s;
+.tabs{
+ display:flex;
+ gap:14px;
 }
-.dot{width:18px;height:18px;border-radius:50%}
+
+.tabs button{
+ padding:12px 22px;
+ border-radius:16px;
+ background:var(--glass);
+ border:1px solid var(--border);
+ color:var(--muted);
+ font-weight:700;
+ cursor:pointer;
+ transition:.3s;
+}
+
+.tabs button.active,
+.tabs button:hover{
+ color:#fff;
+ background:linear-gradient(135deg,var(--accent),var(--accent2));
+}
+
+/* ================= GLOBAL STATUS ================= */
+.status{
+ position:fixed;
+ left:30px;
+ top:110px;
+ background:var(--glass);
+ border:1px solid var(--border);
+ padding:12px 16px;
+ border-radius:16px;
+ display:flex;
+ align-items:center;
+ gap:10px;
+ font-weight:700;
+}
+.dot{
+ width:12px;height:12px;border-radius:50%;
+}
 .green{background:var(--success)}
-.red{background:var(--danger)}
 .yellow{background:var(--warning)}
+.red{background:var(--danger)}
 
-/* Sections */
-.section{display:none;opacity:0;transform:translateY(50px);transition:.5s}
-.section.active{display:block;opacity:1;transform:translateY(0)}
-
-/* Products */
-.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:30px}
-.product{
- background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.35));
- border-radius:28px;overflow:hidden;cursor:pointer;
- border:1px solid rgba(255,255,255,.08);
- perspective:1200px;transition:.6s;position:relative;
- transform-style: preserve-3d;
+/* ================= MAIN ================= */
+main{padding:80px 70px}
+.section{
+ display:none;
+ opacity:0;
+ transform:translateY(40px);
+ transition:.45s ease;
 }
-.product .front,.product .back{
- width:100%;height:100%;border-radius:28px;
- backface-visibility:hidden;position:absolute;top:0;left:0;
- display:flex;flex-direction:column;align-items:center;justify-content:center;
- padding:20px;transition:.5s;gap:12px;
+.section.active{
+ display:block;
+ opacity:1;
+ transform:none;
 }
-.product .front img{width:100%;border-radius:18px;transition:.4s}
-.product .front h3{font-size:22px;color:var(--text)}
-.product .front strong{color:var(--accent2)}
-.product .back{background:var(--panel);transform:rotateY(180deg);gap:15px;color:var(--muted)}
-.product:hover{transform:rotateY(180deg)}
-.product:hover .front{transform:rotateY(180deg)}
-.product:hover .back{transform:rotateY(0)}
-.product .discount{margin-top:8px;padding:10px;border-radius:14px;background:rgba(255,255,255,.05);width:80%;text-align:center}
 
-/* Modal */
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.95);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.4s;z-index:99}
-.modal.show{opacity:1;pointer-events:auto}
-.modal-box{background:var(--panel);border-radius:30px;padding:40px;width:550px;max-width:95%;text-align:center;transform:translateY(-50px);transition:.4s}
-.modal.show .modal-box{transform:translateY(0)}
-.buy-btn{width:100%;padding:18px;border:none;border-radius:20px;font-weight:800;cursor:pointer;background:linear-gradient(135deg,var(--accent),var(--accent2));transition:.25s;margin-top:18px}
-.buy-btn:hover{opacity:.9}
-.loader{width:40px;height:40px;border:4px solid #333;border-top:4px solid var(--accent);border-radius:50%;animation:spin 1s linear infinite;margin:24px auto}
-@keyframes spin{to{transform:rotate(360deg)}}
+/* ================= PRODUCTS ================= */
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+ gap:40px;
+}
+
+.card{
+ background:var(--glass);
+ border:1px solid var(--border);
+ border-radius:28px;
+ padding:24px;
+ transition:.4s;
+ animation:slideUp .6s ease forwards;
+}
+@keyframes slideUp{
+ from{opacity:0;transform:translateY(30px)}
+}
+
+.card:hover{
+ transform:translateY(-10px);
+ box-shadow:0 30px 80px rgba(0,0,0,.6);
+}
+
+.card img{
+ width:100%;
+ height:180px;
+ object-fit:cover;
+ border-radius:20px;
+}
+
+.card h3{margin-top:14px;font-size:22px}
+.desc{color:var(--muted);font-size:14px;margin:8px 0}
+
+.prices{
+ display:flex;
+ gap:10px;
+ align-items:center;
+}
+.old{
+ text-decoration:line-through;
+ opacity:.4;
+}
+.new{
+ font-size:22px;
+ font-weight:800;
+ color:var(--accent2);
+}
+
+.tag{
+ display:inline-flex;
+ align-items:center;
+ gap:8px;
+ font-size:13px;
+ margin-top:10px;
+}
+
+.buy{
+ width:100%;
+ margin-top:16px;
+ padding:14px;
+ border:none;
+ border-radius:18px;
+ background:linear-gradient(135deg,var(--accent),var(--accent2));
+ font-weight:800;
+ cursor:pointer;
+}
+
+/* ================= DASHBOARD ================= */
+.empty{
+ color:var(--muted);
+ text-align:center;
+ padding:80px;
+}
+
+/* ================= MODAL ================= */
+.modal{
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,.82);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ opacity:0;
+ pointer-events:none;
+ transition:.35s;
+ z-index:50;
+}
+.modal.show{
+ opacity:1;
+ pointer-events:auto;
+}
+.modalBox{
+ background:linear-gradient(180deg,#12122a,#0a0a18);
+ border-radius:30px;
+ padding:40px;
+ width:480px;
+ max-width:94%;
+ text-align:center;
+ animation:drop .5s ease;
+}
+@keyframes drop{
+ from{transform:translateY(-30px);opacity:0}
+}
+.modalBox input{
+ width:100%;
+ padding:14px;
+ border-radius:16px;
+ border:1px solid var(--border);
+ background:var(--glass);
+ color:#fff;
+ margin:14px 0;
+ outline:none;
+}
+.pay{
+ width:100%;
+ padding:16px;
+ border:none;
+ border-radius:20px;
+ background:linear-gradient(135deg,var(--accent),var(--accent2));
+ font-weight:800;
+ cursor:pointer;
+}
+.success{color:var(--success)}
 </style>
 </head>
 <body>
-<canvas id="bgCanvas"></canvas>
 
-<div class="sidebar">
- <div class="logo"><img src="assets/logo.png">Extra</div>
- <nav>
+<div class="bg"></div>
+
+<header>
+ <div class="logo">Extra</div>
+ <div class="tabs">
   <button class="active" data-tab="store">Store</button>
   <button data-tab="dashboard">Dashboard</button>
- </nav>
+ </div>
+</header>
+
+<div class="status">
+ <div class="dot green"></div>
+ <span>Online / Undetected</span>
 </div>
 
-<div class="main">
- <div class="topbar">
-  <input placeholder="Search products...">
-  <div class="currency">£</div>
+<main>
+
+<section id="store" class="section active">
+ <div class="grid">
+  
+  <!-- Fortnite Private -->
+  <div class="card">
+   <img src="assets/fn-priv.png">
+   <h3>Fortnite Private</h3>
+   <p class="desc">Private Fortnite build with frequent updates.</p>
+   <div class="prices">
+    <span class="old">£19.99</span>
+    <span class="new">£10.99</span>
+   </div>
+   <div class="tag"><div class="dot green"></div>Undetected</div>
+   <button class="buy" onclick="checkout('Fortnite Private',10.99)">Buy</button>
+  </div>
+
+  <!-- HWID Spoofer -->
+  <div class="card">
+   <img src="assets/hwid.png">
+   <h3>HWID Spoofer</h3>
+   <p class="desc">Secure HWID spoofing tool.</p>
+   <div class="prices">
+    <span class="old">£9.99</span>
+    <span class="new">£4.99</span>
+   </div>
+   <div class="tag"><div class="dot yellow"></div>Updating</div>
+   <button class="buy" onclick="checkout('HWID Spoofer',4.99)">Buy</button>
+  </div>
+
  </div>
+</section>
 
- <div class="global-status">
-  <div class="dot green"></div>
-  <span>Online / Undetected</span>
- </div>
+<section id="dashboard" class="section">
+ <div id="dashGrid" class="grid"></div>
+ <div id="emptyDash" class="empty">No purchases yet.</div>
+</section>
 
- <!-- DASHBOARD -->
- <section class="section" id="dashboard">
-  <h2 style="margin-bottom:25px;text-align:center">Your Purchases</h2>
-  <div class="products" id="dashboardCards"></div>
- </section>
+</main>
 
- <!-- STORE -->
- <section class="section active" id="store">
-  <h2 style="margin-bottom:25px;text-align:center">Store</h2>
-  <div class="products" id="storeProducts"></div>
- </section>
-</div>
-
-<div class="modal" id="modal" onclick="if(event.target.id==='modal')closeModal()">
- <div class="modal-box" id="modalBox"></div>
+<div class="modal" id="modal">
+ <div class="modalBox" id="modalBox"></div>
 </div>
 
 <script>
-// ALL PRODUCTS
-const productList=[
- {name:"Fortnite Private",price:10.99,img:"assets/fn-priv.png",desc:"Full private Fortnite client. Lifetime updates."},
- {name:"HWID Spoofer",price:4.99,img:"assets/hwid.png",desc:"Secure HWID Spoofer for PC. Lifetime support."},
- {name:"Extra Module",price:7.99,img:"assets/module.png",desc:"Premium module for extra features."},
- {name:"Zombie Pack",price:12.99,img:"assets/zombie.png",desc:"Zombie content pack, includes skins and cheats."},
- {name:"Skin Locker",price:8.99,img:"assets/skin.png",desc:"Unlock exclusive skins instantly."},
- {name:"Performance Booster",price:6.99,img:"assets/booster.png",desc:"Optimized settings to boost FPS."}
-];
+const modal=document.getElementById("modal");
+const modalBox=document.getElementById("modalBox");
+const dashGrid=document.getElementById("dashGrid");
+const emptyDash=document.getElementById("emptyDash");
 
-// RENDER PRODUCTS
-const storeDiv=document.getElementById("storeProducts");
-productList.forEach(p=>{
- const div=document.createElement("div"); div.classList.add("product");
- div.innerHTML=`
-  <div class="front">
-   <img src="${p.img}">
-   <h3>${p.name}</h3>
-   <strong>£${p.price}</strong>
-  </div>
-  <div class="back">
-   <p>${p.desc}</p>
-   <div class="discount">Use code <strong>XMAS25</strong> for 25% off!</div>
-   <button class="buy-btn" onclick="openCheckout('${p.name}',${p.price},'${p.img}')">Buy Now</button>
-  </div>`;
- storeDiv.appendChild(div);
-});
+let owned=[];
 
-// PURCHASES
-let purchases=[];
-
-// TABS
-const buttons=document.querySelectorAll(".sidebar nav button");
-const sections=document.querySelectorAll(".section");
-buttons.forEach(btn=>{
- btn.addEventListener("click",()=>{
-  buttons.forEach(b=>b.classList.remove("active"));
-  sections.forEach(s=>s.classList.remove("active"));
-  btn.classList.add("active");
-  document.getElementById(btn.dataset.tab).classList.add("active");
- });
-});
-
-// MODAL + DISCOUNT
-let locked=false;
-function openCheckout(name,price,img){
- locked=false;
- const discountCode="XMAS25";
+/* checkout */
+function checkout(name,price){
  modal.classList.add("show");
  modalBox.innerHTML=`
-  <img src="${img}" style="width:100%;border-radius:18px;margin-bottom:20px">
   <h2>${name}</h2>
-  <strong>£${price}</strong>
-  <p class="small">⚠ Digital product. No refunds.</p>
-  <div class="discount">Enter discount code at checkout: <strong>${discountCode}</strong></div>
-  <button class="buy-btn" onclick="pay('${name}',${price},'${img}')">Pay with PayPal</button>
-  <button class="buy-btn" id="paidBtn" style="display:none" onclick="confirmPaid('${name}','${price}','${img}')">I've Paid</button>
-  <div class="loader" id="loader" style="display:none"></div>`;
+  <p>Discount code</p>
+  <input id="code" placeholder="XMAS25">
+  <h3 id="total">£${price.toFixed(2)}</h3>
+  <button class="pay" onclick="confirm('${name}',${price})">Confirm Purchase</button>
+ `;
+ document.getElementById("code").oninput=e=>{
+  document.getElementById("total").textContent=
+   e.target.value==="XMAS25"
+    ? "£"+(price*.75).toFixed(2)+" (25% OFF)"
+    : "£"+price.toFixed(2);
+ };
 }
-function pay(name,price,img){
- if(locked) return; locked=true;
- window.open("https://www.paypal.com/paypalme/un5forme/"+price,"_blank");
- setTimeout(()=>document.getElementById("paidBtn").style.display="block",600);
-}
-function confirmPaid(name,price,img){
- document.getElementById("loader").style.display="block";
+
+function confirm(name){
+ owned.push(name);
+ modalBox.innerHTML=`<h2 class="success">Purchase Complete ✔</h2>`;
  setTimeout(()=>{
-  modalBox.innerHTML=`
-   <h2>Payment Successful ✔</h2>
-   <p class="small">Order ID</p>
-   <div class="code">ORD-${Date.now()}</div>
-   <p class="small">License Key</p>
-   <div class="code">45b8e96a-76a6-42ec-99d0-263bd099c184</div>
-   <button class="buy-btn" onclick="addPurchase('${name}','${price}','${img}')">Add to Dashboard</button>
-  `;
- },1500);
+  modal.classList.remove("show");
+  updateDash();
+ },900);
 }
-function addPurchase(name,price,img){
- purchases.push({name,price,img});
- updateDashboard();
- closeModal();
-}
-function closeModal(){modal.classList.remove("show")}
 
-// DASHBOARD UPDATE
-function updateDashboard(){
- const dash=document.getElementById("dashboardCards");
- dash.innerHTML="";
- if(purchases.length===0){dash.innerHTML="<p style='text-align:center;color:var(--muted)'>No purchases yet.</p>"; return;}
- purchases.forEach(p=>{
-  const card=document.createElement("div");
-  card.classList.add("product");
-  card.innerHTML=`
-   <div class="front">
-    <img src="${p.img}">
-    <h3>${p.name}</h3>
-    <strong>£${p.price}</strong>
-   </div>
-   <div class="back">
-    <p>Purchased successfully!</p>
-   </div>`;
-  dash.appendChild(card);
+function updateDash(){
+ dashGrid.innerHTML="";
+ emptyDash.style.display=owned.length?"none":"block";
+ owned.forEach(o=>{
+  dashGrid.innerHTML+=`<div class="card"><h3>${o}</h3><p>Owned</p></div>`;
  });
 }
 
-// PARTICLES BACKGROUND
-const canvas=document.getElementById("bgCanvas"),ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;canvas.height=window.innerHeight;
-let particles=[];
-for(let i=0;i<300;i++){
- particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1.5,dx:(Math.random()-0.5)*1.5,dy:(Math.random()-0.5)*1.5});
-}
-function animate(){
- ctx.clearRect(0,0,canvas.width,canvas.height);
- particles.forEach(p=>{
-   ctx.beginPath();
-   ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-   ctx.fillStyle="rgba(255,79,255,0.25)";
-   ctx.fill();
-   p.x+=p.dx;p.y+=p.dy;
-   if(p.x<0||p.x>canvas.width)p.dx*=-1;
-   if(p.y<0||p.y>canvas.height)p.dy*=-1;
- });
- requestAnimationFrame(animate);
-}
-animate();
-window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight});
+/* tabs */
+document.querySelectorAll(".tabs button").forEach(b=>{
+ b.onclick=()=>{
+  document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("active"));
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  b.classList.add("active");
+  document.getElementById(b.dataset.tab).classList.add("active");
+ }
+});
+
+modal.onclick=e=>{if(e.target===modal)modal.classList.remove("show")}
 </script>
+
 </body>
 </html>
